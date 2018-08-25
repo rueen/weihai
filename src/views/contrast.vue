@@ -4,6 +4,7 @@
     <div class="wrap">
         <div class="left fl">
             <h2>跨行业黑名单交叉对比</h2>
+            <div id="venn"></div>
         </div>
         <div class="right fr">
             <div class="rollBox">
@@ -74,10 +75,17 @@ export default {
     },
     components:{ roll },
     created() {
-
+        // this.venn()
     },
     methods:{
-        
+        venn(){
+            var sets = [ {sets: ['A'], size: 12},
+            {sets: ['B'], size: 12},
+            {sets: ['A','B'], size: 2}];
+
+            var chart = venn.VennDiagram();
+            d3.select("#venn").datum(sets).call(chart);
+        }
     }
 }
 </script>

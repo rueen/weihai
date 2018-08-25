@@ -8,18 +8,25 @@
 export default {
     name: 'App',
     created() {
-        var value = document.documentElement.clientWidth
-        var ua = navigator.userAgent
-
-        if (ua.match(/MI 5/) && ua.match(/QQBrowser/) && ! ua.match(/MicroMessenger/)) {
-            value = (3 * value) / 2.6 // 小米虽然 dpr 是3 但表现的依然是 2.6
+        this.renderRem();
+        window.onresize = () => {
+            this.renderRem()
         }
-
-        var  deviceWidth = Math.min(1920, value)
-
-        document.documentElement.style.fontSize = deviceWidth / 19.2 + 'px';
-
     },
+    methods:{
+        renderRem(){
+            var value = document.documentElement.clientWidth
+            var ua = navigator.userAgent
+
+            if (ua.match(/MI 5/) && ua.match(/QQBrowser/) && ! ua.match(/MicroMessenger/)) {
+                value = (3 * value) / 2.6 // 小米虽然 dpr 是3 但表现的依然是 2.6
+            }
+
+            var  deviceWidth = Math.min(1920, value)
+
+            document.documentElement.style.fontSize = deviceWidth / 19.2 + 'px';
+        }
+    }
 }
 </script>
 
