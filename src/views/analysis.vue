@@ -56,11 +56,17 @@
                 <div class="bottom"></div>
             </div>
         </div>
+        <div class="right fr">
+            <div class="echartBox">
+                <echart7></echart7>
+            </div>
+        </div>
     </div>
 </div>
 </template>
 
 <script>
+import echart7 from "../components/echart7.vue"
 export default {
     data() {
         return {
@@ -69,6 +75,7 @@ export default {
             openIndex: null
         }
     },
+    components: { echart7 },
     created() {
 
     },
@@ -88,6 +95,12 @@ export default {
 </script>
 
 <style scoped>
+.right{
+    padding-right: 2rem;
+}
+.echartBox{
+    width: 8.5rem; height: 8.5rem;
+}
 .searchBox2{
     margin-top: .3rem;
 }
