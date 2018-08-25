@@ -24,10 +24,25 @@ export default {
 </script>
 
 <style>
-body,div,h1,h2,h3,p,img{
+@import url('./fonts/iconfont.css');
+html,body,div,h1,h2,h3,p,img,input,form,button,ul,li{
     padding: 0; margin: 0;
     box-sizing:border-box;
 }
+ul,li{
+    list-style: none;
+}
+button,
+input
+{
+    font: inherit;
+    margin: 0;
+    color: inherit;
+    outline: none;
+    border: none;
+    vertical-align: middle;
+}
+
 img{
     vertical-align: middle;
 }
@@ -48,7 +63,14 @@ h1{
     background: url(./assets/top-center.gif) no-repeat center 42%;
     background-size: 50%;
 }
-
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+}
 .fl{
     float: left;
 }
