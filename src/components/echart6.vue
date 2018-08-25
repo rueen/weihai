@@ -27,30 +27,35 @@ export default {
                     itemHeight: 10,
                     data:[{
                         name: '餐饮',
+                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
                             fontSize:12
                         }
                     },{
                         name: '旅游',
+                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
                             fontSize:12
                         }
                     },{
                         name: '计算机服务',
+                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
                             fontSize:12
                         }
                     },{
                         name: '电商',
+                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
                             fontSize:12
                         }
                     },{
                         name: '渔具',
+                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
                             fontSize:12
