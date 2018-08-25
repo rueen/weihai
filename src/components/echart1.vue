@@ -25,11 +25,9 @@ export default {
                 },
                 visualMap: {
                     show: false,
-                    min: 80,
-                    max: 600,
-                    inRange: {
-                        colorLightness: [0, 1]
-                    }
+                    min: 1,
+                    max: 5,
+                    color: ['#1cc4c2','#22af6a','#dcba1a','#d57b32','#4094e4']
                 },
                 series : [
                     {
@@ -38,11 +36,11 @@ export default {
                         radius : '55%',
                         center: ['50%', '50%'],
                         data:[
-                            {value:335, name:'渔具渔业'},
-                            {value:310, name:'导游'},
-                            {value:274, name:'公务员'},
-                            {value:235, name:'医生'},
-                            {value:400, name:'教师'}
+                            {value:1, name:'渔具渔业'},
+                            {value:2, name:'导游'},
+                            {value:3, name:'公务员'},
+                            {value:4, name:'医生'},
+                            {value:5, name:'教师'}
                         ].sort(function (a, b) { return a.value - b.value; }),
                         roseType: 'radius',
                         label: {

@@ -19,85 +19,66 @@ export default {
         //渲染echart
         renderEchart(){
             var option = {
-                title: {
-                    text: '堆叠区域图'
+                tooltip: {
+                    trigger: 'item',
+                    padding: 10,
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        // console.log(params)
+                        return 'tooltip'
+                    }
                 },
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#6a7985'
+                grid : {
+                    left : '5%',
+                    right : '5%',
+                    bottom : '15%',
+                    top: '10%',
+                    containLabel : true,
+                    y2: 140
+                },
+                color: ['#b2a244', '#3e2dab'],
+                xAxis : {
+                    type : 'category',
+                    data : ['201708','201709','201710','201711','201712','201801','201802', '201803', '201804', '201805', '201806', '201807'],
+                    axisLabel:{
+                        interval:0,//横轴信息全部显示
+                        rotate:-30,//-30度角倾斜显示
+                    },
+                    axisLine:{
+                        lineStyle:{
+                            color:'#fff',
                         }
                     }
                 },
-                legend: {
-                    data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
-                },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
+                yAxis: {
+                    type: 'value',
+                    splitLine: {
+                        lineStyle: {
+                            // 使用深浅的间隔色
+                            color: ['#10204d']
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff',
+                        }
                     }
                 },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : ['周一','周二','周三','周四','周五','周六','周日']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
                 series : [
                     {
-                        name:'邮件营销',
+                        name:'处罚结果',
                         type:'line',
                         stack: '总量',
                         areaStyle: {normal: {}},
-                        data:[120, 132, 101, 134, 90, 230, 210]
+                        data:[120, 132, 101, 134, 90, 230, 120, 132, 101, 134, 90, 230],
                     },
                     {
-                        name:'联盟广告',
+                        name:'信用等级',
                         type:'line',
                         stack: '总量',
                         areaStyle: {normal: {}},
-                        data:[220, 182, 191, 234, 290, 330, 310]
-                    },
-                    {
-                        name:'视频广告',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {}},
-                        data:[150, 232, 201, 154, 190, 330, 410]
-                    },
-                    {
-                        name:'直接访问',
-                        type:'line',
-                        stack: '总量',
-                        areaStyle: {normal: {}},
-                        data:[320, 332, 301, 334, 390, 330, 320]
-                    },
-                    {
-                        name:'搜索引擎',
-                        type:'line',
-                        stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        areaStyle: {normal: {}},
-                        data:[820, 932, 901, 934, 1290, 1330, 1320]
+                        data:[220, 182, 191, 234, 290, 330, 220, 182, 191, 234, 290, 330]
                     }
                 ]
             };

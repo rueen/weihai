@@ -19,65 +19,82 @@ export default {
         //渲染echart
         renderEchart(){
             var option = {
-                tooltip : {
-                    trigger: 'axis'
+                tooltip: {
+                    trigger: 'item',
+                    padding: 10,
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        // console.log(params)
+                        return 'tooltip'
+                    }
+                },
+                grid : {
+                    left : '5%',
+                    right : '10%',
+                    bottom : '15%',
+                    top: '10%',
+                    containLabel : true,
+                    y2: 140
                 },
                 legend: {
-                    data:['蒸发量','降水量']
+                    x: 'right',
+                    itemWidth: 18,
+                    itemHeight: 2,
+                    data:[{
+                        name: '法人信用记录查询',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    },{
+                        name: '自然人信用记录查询',
+                        textStyle: {
+                            color: '#fff'
+                        }
+                    }]
                 },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'蒸发量',
-                        type:'bar',
-                        data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-                        markPoint : {
-                            data : [
-                                {type : 'max', name: '最大值'},
-                                {type : 'min', name: '最小值'}
-                            ]
-                        },
-                        markLine : {
-                            data : [
-                                {type : 'average', name: '平均值'}
-                            ]
+                color: ['#41bd64', '#1a9afd'],
+                // calculable : true,
+                xAxis : {
+                    type : 'category',
+                    data : ['201801','201802', '201803', '201804', '201805', '201806', '201807', '201807'],
+                    axisLabel:{
+                        interval:0,//横轴信息全部显示
+                        rotate:-30,//-30度角倾斜显示
+                        textStyle:{
+                            fontSize:12
                         }
                     },
-                    {
-                        name:'降水量',
-                        type:'bar',
-                        data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-                        markPoint : {
-                            data : [
-                                {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183},
-                                {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-                            ]
-                        },
-                        markLine : {
-                            data : [
-                                {type : 'average', name : '平均值'}
-                            ]
+                    axisLine:{
+                        lineStyle:{
+                            color:'#fff',
                         }
+                    }
+                },
+                yAxis : {
+                    type: 'value',
+                    splitLine: {
+                        lineStyle: {
+                            // 使用深浅的间隔色
+                            color: ['#10204d']
+                        }
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff',
+                        }
+                    }
+                },
+                series : [
+                    {
+                        name:'法人信用记录查询',
+                        type:'bar',
+                        data:[120, 132, 101, 134, 90, 230, 120, 132]
+                    },
+                    {
+                        name:'自然人信用记录查询',
+                        type:'bar',
+                        data:[220, 182, 191, 234, 290, 330, 220, 182]
                     }
                 ]
             };

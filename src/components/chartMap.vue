@@ -5,10 +5,9 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import whmapdata from '../json/371400.json'
-import data from '../json/data.json'
+import whMapJson from '../json/whMapJson.json'
 
-echarts.registerMap('weihai', whmapdata);
+echarts.registerMap('weihai', whMapJson);
 
 export default {
     data() {
@@ -24,54 +23,40 @@ export default {
             var option = {
                 tooltip: {
                     trigger: 'item',
-                    formatter: '{b}<br/>{c} (p / km2)'
-                },
-                legend: {
-                    orient: 'vertical',
-                    left: 'left',
-                    tooltip: {
-                        show: true
+                    padding: 10,
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        // console.log(params)
+                        return '<span style="font-size: 16px;">信用记录查询</span><br/><span style="font-size: 14px;">，在服务大厅查询个人信用记录</span>'
                     }
                 },
                 visualMap: {
-                    min: 800,
-                    max: 50000,
-                    text:['High','Low'],
-                    realtime: false,
-                    calculable: true,
-                    inRange: {
-                        color: ['lightskyblue','yellow', 'orangered']
-                    }
+                    show: false,
+                    min: 1,
+                    max: 4,
+                    color: ['#1468d9','#1f7bf8','#259cf0'],
+                    text:['High','Low'],// 文本，默认为数值文本
+                    calculable: true
                 },
-                // visualMap: {
-                //     min: 0,
-                //     max: 2500,
-                //     show: false,
-                //     inRange: {
-                //         color: ['#ff7980', '#ffb59a', '#ffd6b8']
-                //     },
-                //     formater: 'aaaa{1000-2000}'
-                // },
                 series: [{
+                    name: '威海',
                     type: 'map',
                     map: 'weihai',
                     roam: false,
-                    scaleLimit:{
-                        min:1,
-                        max:3
-                    },
-                    label: {
-                        normal: {
-                            show: false
-                        },
-                        emphasis: {
-                            show: false
-                        }
-                    },
                     itemStyle:{
-                        normal:{label:{show:true}},
                         emphasis:{label:{show:true}}
                     },
+                    // 文本位置修正
+                    textFixed: {
+                        Alaska: [20, -20]
+                    },
+                    data:[
+                        {name: '环翠区', value: 2},
+                        {name: '荣成市', value: 1},
+                        {name: '乳山市', value: 4},
+                        {name: '文登市', value: 3}
+                    ]
                 }]
             };
             

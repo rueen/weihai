@@ -19,31 +19,77 @@ export default {
         //渲染echart
         renderEchart(){
             var option = {
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
                 legend: {
-                    data: ['直接访问', '邮件营销','联盟广告','视频广告','搜索引擎']
+                    x: '72%',
+                    y: '10%',
+                    orient: 'vertical',
+                    itemWidth: 10,
+                    itemHeight: 10,
+                    data:[{
+                        name: '餐饮',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:12
+                        }
+                    },{
+                        name: '旅游',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:12
+                        }
+                    },{
+                        name: '计算机服务',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:12
+                        }
+                    },{
+                        name: '电商',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:12
+                        }
+                    },{
+                        name: '渔具',
+                        textStyle: {
+                            color: '#fff',
+                            fontSize:12
+                        }
+                    }]
                 },
+                color: ['#ceb800', '#22af6a', '#00befc', '#155ae4', '#7640e4'],
                 grid: {
                     left: '3%',
-                    right: '4%',
-                    bottom: '3%',
+                    right: '24%',
+                    bottom: '0',
+                    top: '5%',
                     containLabel: true
                 },
                 xAxis:  {
-                    type: 'value'
+                    type: 'value',
+                    show: false
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['周一','周二','周三','周四','周五','周六','周日']
+                    data: ['乳山市','文登区','荣成市','环翠区','高区','经区','南海新区'],
+                    axisLabel:{
+                        textStyle:{
+                            fontSize:12
+                        }
+                    },
+                    axisLine:{
+                        show:false,
+                        lineStyle:{
+                            color:'#fff',
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    }
                 },
                 series: [
                     {
-                        name: '直接访问',
+                        name: '餐饮',
                         type: 'bar',
                         stack: '总量',
                         label: {
@@ -52,10 +98,10 @@ export default {
                                 position: 'insideRight'
                             }
                         },
-                        data: [320, 302, 301, 334, 390, 330, 320]
+                        data: [12, 11, 14, 15, 22, 24, 30]
                     },
                     {
-                        name: '邮件营销',
+                        name: '旅游',
                         type: 'bar',
                         stack: '总量',
                         label: {
@@ -64,10 +110,10 @@ export default {
                                 position: 'insideRight'
                             }
                         },
-                        data: [120, 132, 101, 134, 90, 230, 210]
+                        data: [10, 13, 11, 13, 9, 20, 21]
                     },
                     {
-                        name: '联盟广告',
+                        name: '计算机服务',
                         type: 'bar',
                         stack: '总量',
                         label: {
@@ -76,10 +122,10 @@ export default {
                                 position: 'insideRight'
                             }
                         },
-                        data: [220, 182, 191, 234, 290, 330, 310]
+                        data: [20, 18, 31, 24, 29, 33, 30]
                     },
                     {
-                        name: '视频广告',
+                        name: '电商',
                         type: 'bar',
                         stack: '总量',
                         label: {
@@ -88,10 +134,10 @@ export default {
                                 position: 'insideRight'
                             }
                         },
-                        data: [150, 212, 201, 154, 190, 330, 410]
+                        data: [15, 21, 21, 14, 19, 30, 40]
                     },
                     {
-                        name: '搜索引擎',
+                        name: '渔具',
                         type: 'bar',
                         stack: '总量',
                         label: {
@@ -100,7 +146,7 @@ export default {
                                 position: 'insideRight'
                             }
                         },
-                        data: [820, 832, 901, 934, 1290, 1330, 1320]
+                        data: [80, 32, 19, 34, 12, 10, 12]
                     }
                 ]
             };
