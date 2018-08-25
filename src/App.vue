@@ -28,6 +28,9 @@ body,div,h1,h2,h3,p,img{
     padding: 0; margin: 0;
     box-sizing:border-box;
 }
+img{
+    vertical-align: middle;
+}
 h1,h2,h3{
     font-weight: normal;
 }
@@ -36,6 +39,16 @@ body{
     font-family: 'Microsoft YaHei';
     color: #fff;
 }
+h1{
+    font-size: .3rem;
+    color: #61ebe7;
+    width: 100%; height: 1.2rem;
+    line-height: 1rem;
+    text-align: center;
+    background: url(./assets/top-center.gif) no-repeat center 42%;
+    background-size: 50%;
+}
+
 .fl{
     float: left;
 }

@@ -103,6 +103,11 @@ export default {
 </script>
 
 <style scoped>
+.layout{
+    width: 100%;
+    background: url(../assets/bg1.jpg) no-repeat center 0;
+    background-size: 100% auto;
+}
 .middle{
     width: 7.25rem;
 }
@@ -143,18 +148,5 @@ export default {
     background-size: 100% auto;
     padding-bottom: .12rem;
 }
-h1{
-    font-size: .3rem;
-    color: #61ebe7;
-    width: 100%; height: .9rem;
-    line-height: .9rem;
-    text-align: center;
-    background: url(../assets/top-center.gif) no-repeat center 40%;
-    background-size: 50%;
-}
-.layout{
-    width: 100%;
-    background: url(../assets/bg1.jpg) no-repeat center 0;
-    background-size: 100% auto;
-}
+
 </style>

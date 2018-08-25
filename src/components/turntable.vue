@@ -7,6 +7,8 @@
         <div class="p-3 f14">自然人归集数量<div class="fr red"><span class="f24">1.21</span><span class="f20">万条</span></div></div>
         <div class="p-4 f14">行政许可数量<div class="fr yellow"><span class="f24">1.09</span><span class="f20">万条</span></div></div>
         <div class="p-5 f14">行政处罚数量<div class="fr yellow"><span class="f24">1.09</span><span class="f20">万条</span></div></div>
+        <div class="top-left"></div>
+        <div class="bottom-left"></div>
     </div>
 </div>
 </template>
@@ -28,6 +30,22 @@ export default {
 </script>
 
 <style scoped>
+.top-left{
+    top: 0;
+    background: url(../assets/top-left.gif) no-repeat -.33rem -.06rem;
+    background-size: 100% auto;
+}
+.bottom-left{
+    bottom: 0;
+    background: url(../assets/bottom-left.gif) no-repeat -.33rem .06rem;
+    background-size: 100% auto;
+}
+.top-left,
+.bottom-left{
+    position: absolute;
+    left: 0;
+    width: 1rem; height: .56rem;
+}
 .p-4{
     padding: .15rem 0 0 0;
 }
