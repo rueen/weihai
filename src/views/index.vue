@@ -109,7 +109,7 @@ export default {
     background-size: 100% auto;
 }
 .middle{
-    width: 7.25rem;
+    width: 7rem;
 }
 .wrap{
     padding: 0 .5rem;
@@ -117,7 +117,7 @@ export default {
 }
 .left,
 .right{
-    width: 5.46rem;
+    width: 5.45rem;
 }
 .mt30{
     margin-top: .3rem;

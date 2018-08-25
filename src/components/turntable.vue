@@ -81,7 +81,7 @@ export default {
 .zhuan{
     width: 2.75rem; height: auto;
     position: absolute;
-    right: .37rem;
+    right: .17rem;
     bottom: 0;
 }
 </style>
