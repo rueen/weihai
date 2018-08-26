@@ -35,6 +35,7 @@
 
 <script>
 import getElement from '../js/getElement.js'
+import getD3 from '../js/getD3.js'
 
 export default {
     data() {
@@ -47,11 +48,13 @@ export default {
     },
     methods:{
         venn(){
-            getElement('venn', $elem => {
-                var width = parseInt($elem.offsetWidth);
-                var height = parseInt($elem.offsetHeight);
+            getD3(() => {
+                getElement('venn', $elem => {
+                    var width = parseInt($elem.offsetWidth);
+                    var height = parseInt($elem.offsetHeight);
 
-                this.render(width, height)
+                    this.render(width, height)
+                })
             })
         },
         render(width, height){

@@ -4,6 +4,7 @@
  
 <script type="text/ecmascript-6">
 import getElement from '../js/getElement.js'
+import getD3 from '../js/getD3.js'
 import analysisJson from '../json/analysis.json'
 
 export default {
@@ -18,11 +19,13 @@ export default {
         this.$nextTick(() => {
             this.relation = analysisJson;
 
-            getElement('app1', $elem => {
-                var width = parseInt($elem.offsetWidth);
-                var height = parseInt($elem.offsetHeight);
+            getD3(() => {
+                getElement('app1', $elem => {
+                    var width = parseInt($elem.offsetWidth);
+                    var height = parseInt($elem.offsetHeight);
 
-                this.showd3(width, height)
+                    this.showd3(width, height)
+                })
             })
         })
     },
