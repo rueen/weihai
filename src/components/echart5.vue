@@ -107,6 +107,7 @@ export default {
     float: right;
     font-size: .14rem;
     color: #fff;
+    padding: .2rem 0 0 0;
 }
 .legend li{
     padding: .08rem 0;
