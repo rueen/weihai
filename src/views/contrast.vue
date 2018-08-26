@@ -4,7 +4,7 @@
     <div class="wrap">
         <div class="left fl">
             <h2>跨行业黑名单交叉对比</h2>
-            <div id="venn"></div>
+            <div class="venn" id="venn"></div>
         </div>
         <div class="right fr">
             <div class="rollBox">
@@ -38,6 +38,7 @@
 
 <script>
 import roll from '../components/roll.vue';
+import getElement from '../js/getElement.js'
 
 export default {
     data() {
@@ -75,22 +76,81 @@ export default {
     },
     components:{ roll },
     created() {
-        // this.venn()
+        this.venn()
     },
     methods:{
         venn(){
-            var sets = [ {sets: ['A'], size: 12},
-            {sets: ['B'], size: 12},
-            {sets: ['A','B'], size: 2}];
+            getElement('venn', $elem => {
+                this.render()
+            })
+        },
+        render(){
+            var sets = [
+                {"sets": [0], "label": "经营异常名录", "size": 300, "fill": "#f00"},
+                {"sets": [1], "label": "法院失信被执行人", "size": 100},
+                {"sets": [2], "label": "税务D级", "size": 50},
+                {"sets": [0, 1], "size": 20},
+                {"sets": [0, 2], "size": 10},
+                {"sets": [1, 2], "size": 20},
+                {"sets": [0, 1, 2], "size": 5}
+            ]
 
-            var chart = venn.VennDiagram();
-            d3.select("#venn").datum(sets).call(chart);
+        var chart = venn.VennDiagram();
+
+        var div = d3.select("#venn")
+        div.datum(sets).call(chart);
+
+        // div.select('g[data-venn-sets="0"]')
+        //     .style("color", "#fff");
+
+        // var tooltip = d3.select("body").append("div")
+        //     .attr("class", "venntooltip");
+
+        // div.selectAll("path")
+        //     .style("stroke-opacity", 0)
+        //     .style("stroke", "#fff")
+        //     .style("stroke-width", 1)
+
+        // div.selectAll("g")
+        //     .on("mouseover", function(d, i) {
+        //         // sort all the areas relative to the current item
+        //         venn.sortAreas(div, d);
+
+        //         // Display a tooltip with the current size
+        //         tooltip.transition().duration(400).style("opacity", .9);
+        //         tooltip.text(d.size + " users");
+
+        //         // highlight the current path
+        //         var selection = d3.select(this).transition("tooltip").duration(400);
+        //         selection.select("path")
+        //             .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
+        //             .style("stroke-opacity", 1);
+        //     })
+
+        //     .on("mousemove", function() {
+        //         tooltip.style("left", (d3.event.pageX) + "px")
+        //                .style("top", (d3.event.pageY - 28) + "px");
+        //     })
+
+        //     .on("mouseout", function(d, i) {
+        //         tooltip.transition().duration(400).style("opacity", 0);
+        //         var selection = d3.select(this).transition("tooltip").duration(400);
+        //         selection.select("path")
+        //             .style("fill-opacity", d.sets.length == 1 ? .25 : .0)
+        //             .style("stroke-opacity", 0);
+        //     });
         }
     }
 }
 </script>
 
 <style scoped>
+.venn{
+    font-size: .18rem;
+    color: #fff;
+    width: 9rem; height: 6.8rem;
+}
+
 .inner4{
     height: 2.88rem;
 }
@@ -146,6 +206,9 @@ h2{
 }
 .wrap{
     overflow: hidden;
+}
+.left{
+    padding: 0 0 0 .65rem;
 }
 .left,.right{
     width: 50%;
