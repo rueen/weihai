@@ -1,48 +1,50 @@
 <template>
 <div class="layout">
-    <h1>威海市信用大数据分析平台</h1>
-    <div class="wrap">
-        <div class="left fl">
-            <div class="echartBox">
-                <h2>重点人群失信占比分析<span class="more">更多</span></h2>
-                <div class="inner">
-                    <echart1></echart1>
+    <div class="topBg">
+        <h1>威海市信用大数据分析平台</h1>
+        <div class="wrap">
+            <div class="left fl">
+                <div class="echartBox">
+                    <h2>重点人群失信占比分析<span class="more">更多</span></h2>
+                    <div class="inner">
+                        <echart1></echart1>
+                    </div>
+                </div>
+                <div class="echartBox mt30">
+                    <h2>失信信息统计</h2>
+                    <div class="inner">
+                        <echart2></echart2>
+                    </div>
+                </div>
+                <div class="echartBox mt30">
+                    <h2>行业信用评价结果分析<span class="more">更多</span></h2>
+                    <div class="inner">
+                        <echart3></echart3>
+                    </div>
                 </div>
             </div>
-            <div class="echartBox mt30">
-                <h2>失信信息统计</h2>
-                <div class="inner">
-                    <echart2></echart2>
-                </div>
+            <div class="middle fl">
+                <turntable></turntable>
+                <chart-map></chart-map>
             </div>
-            <div class="echartBox mt30">
-                <h2>行业信用评价结果分析<span class="more">更多</span></h2>
-                <div class="inner">
-                    <echart3></echart3>
+            <div class="right fr">
+                <div class="echartBox">
+                    <h2>信用记录查询分布图</h2>
+                    <div class="inner">
+                        <echart4></echart4>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="middle fl">
-            <turntable></turntable>
-            <chart-map></chart-map>
-        </div>
-        <div class="right fr">
-            <div class="echartBox">
-                <h2>信用记录查询分布图</h2>
-                <div class="inner">
-                    <echart4></echart4>
+                <div class="echartBox mt30">
+                    <h2>跨行业黑名单交叉对比<span class="more link" @click="openContrastPage">更多</span></h2>
+                    <div class="inner">
+                        <echart5></echart5>
+                    </div>
                 </div>
-            </div>
-            <div class="echartBox mt30">
-                <h2>跨行业黑名单交叉对比<span class="more link" @click="openContrastPage">更多</span></h2>
-                <div class="inner">
-                    <echart5></echart5>
-                </div>
-            </div>
-            <div class="echartBox mt30">
-                <h2>企业关联分析图<span class="more link" @click="openAnalysisPage">更多</span></h2>
-                <div class="inner">
-                    <echart6></echart6>
+                <div class="echartBox mt30">
+                    <h2>企业关联分析图<span class="more link" @click="openAnalysisPage">更多</span></h2>
+                    <div class="inner">
+                        <echart6></echart6>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,8 +107,9 @@ export default {
 <style scoped>
 .layout{
     width: 100%;
-    background: url(../assets/bg1.jpg) no-repeat center 0;
+    background: url(../assets/bg1.jpg) no-repeat center bottom;
     background-size: 100% auto;
+    padding-bottom: .37rem;
 }
 .middle{
     width: 7rem;

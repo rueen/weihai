@@ -1,5 +1,5 @@
 <template>
-<div id="app">
+<div class="app" id="app">
     <router-view/>
 </div>
 </template>
@@ -11,6 +11,7 @@ export default {
         this.renderRem();
         window.onresize = () => {
             this.renderRem()
+            // window.location.reload()
         }
     },
     methods:{
@@ -57,17 +58,21 @@ h1,h2,h3{
     font-weight: normal;
 }
 body{
-    background: #000a2a;
+    background: #010b2b;
     font-family: 'Microsoft YaHei';
     color: #fff;
 }
 h1{
     font-size: .3rem;
     color: #61ebe7;
-    width: 100%; height: 1.2rem;
-    line-height: 1rem;
+    width: 100%; height: .76rem;
+    line-height: .8rem;
     text-align: center;
-    background: url(./assets/top-center.gif) no-repeat center 42%;
+    /*background: url(./assets/top-center.gif) no-repeat center 42%;*/
+    /*background-size: 50%;*/
+}
+.topBg{
+    background: url(./assets/top-center.gif) no-repeat center -35%;
     background-size: 50%;
 }
 .clearfix:before,

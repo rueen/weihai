@@ -1,68 +1,70 @@
 <template>
 <div class="layout">
-    <h1>威海市信用大数据分析平台</h1>
-    <div class="wrap">
-        <div class="left fl">
-            <h2>跨行业黑名单交叉对比</h2>
-            <div class="venn" id="venn"></div>
-            <div class="legend clearfix">
-                <ul class="fl">
-                    <li>
-                        <span class="icon blue fl"></span>
-                        <p class="fl">经营异常名录<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                    <li>
-                        <span class="icon yellow fl"></span>
-                        <p class="fl">法院失信被执行人<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                    <li>
-                        <span class="icon green fl"></span>
-                        <p class="fl">税务D级<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                </ul>
-                <ul class="fl">
-                    <li>
-                        <span class="icon color1 fl"></span>
-                        <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                    <li>
-                        <span class="icon color2 fl"></span>
-                        <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                    <li>
-                        <span class="icon color3 fl"></span>
-                        <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                    <li>
-                        <span class="icon color4 fl"></span>
-                        <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="right fr">
-            <div class="rollBox">
-                <h3 class="title title1"></h3>
-                <div class="inner inner1">
-                    <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+    <div class="topBg">
+        <h1>威海市信用大数据分析平台</h1>
+        <div class="wrap">
+            <div class="left fl">
+                <h2>跨行业黑名单交叉对比</h2>
+                <div class="venn" id="venn"></div>
+                <div class="legend clearfix">
+                    <ul class="fl">
+                        <li>
+                            <span class="icon blue fl"></span>
+                            <p class="fl">经营异常名录<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                        <li>
+                            <span class="icon yellow fl"></span>
+                            <p class="fl">法院失信被执行人<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                        <li>
+                            <span class="icon green fl"></span>
+                            <p class="fl">税务D级<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                    </ul>
+                    <ul class="fl">
+                        <li>
+                            <span class="icon color1 fl"></span>
+                            <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                        <li>
+                            <span class="icon color2 fl"></span>
+                            <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                        <li>
+                            <span class="icon color3 fl"></span>
+                            <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                        <li>
+                            <span class="icon color4 fl"></span>
+                            <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="rollBox">
-                <h3 class="title title2"></h3>
-                <div class="inner inner2">
-                    <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+            <div class="right fr">
+                <div class="rollBox">
+                    <h3 class="title title1"></h3>
+                    <div class="inner inner1">
+                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                    </div>
                 </div>
-            </div>
-            <div class="rollBox">
-                <h3 class="title title3"></h3>
-                <div class="inner inner3">
-                    <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                <div class="rollBox">
+                    <h3 class="title title2"></h3>
+                    <div class="inner inner2">
+                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                    </div>
                 </div>
-            </div>
-            <div class="rollBox">
-                <h3 class="title title4"></h3>
-                <div class="inner inner4">
-                    <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                <div class="rollBox">
+                    <h3 class="title title3"></h3>
+                    <div class="inner inner3">
+                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                    </div>
+                </div>
+                <div class="rollBox">
+                    <h3 class="title title4"></h3>
+                    <div class="inner inner4">
+                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,6 +187,9 @@ export default {
 </script>
 
 <style scoped>
+h1{
+    height: .9rem;
+}
 .icon{
     display: inline-block;
     width: .16rem; height: .16rem;
@@ -280,7 +285,7 @@ export default {
     padding-bottom: .12rem;
     width: 3.71rem;
     float: left;
-    margin: 0 .5rem .42rem 0;
+    margin: .42rem .5rem 0 0;
 }
 .right{
     padding: .66rem 0 0 .6rem;

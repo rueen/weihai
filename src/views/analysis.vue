@@ -1,64 +1,66 @@
 <template>
 <div class="layout">
-    <h1>威海市信用大数据分析平台</h1>
-    <div class="wrap">
-        <div class="left fl">
-            <div class="searchBox">
-                <div class="top"></div>
-                <div class="inner">
-                    <form class="clearfix">
-                        <div class="inputBox fl">
-                            <input type="text" class="input" placeholder="请输入企业、个人名称" v-model="keyword">
-                            <span class="iconfont icon-shanchu" @click="clear"></span>
-                        </div>
-                        <button type="submit" class="searchBtn fr">搜索</button>
-                    </form>
-                    <div class="screen screen1 clearfix">
-                        <div class="screenLeft fl">投资方式:</div>
-                        <div class="fr screenRight">
-                            <span class="item">全部</span>
-                            <span class="item cur">直接投资</span>
-                            <span class="item">股东投资</span>
-                            <span class="item">董高监法投资</span>
-                        </div>
-                    </div>
-                    <div class="screen screen2 clearfix">
-                        <div class="screenLeft fl">状态:</div>
-                        <div class="fr screenRight">
-                            <span class="item cur">正常</span>
-                            <span class="item">注销</span>
-                        </div>
-                    </div>
-                    <ul class="resultList">
-                        <li class="resultItem" v-for="(item, index) in resultList">
-                            <div class="f16 resultTitle clearfix" @click="toggle(index)">
-                                <span class="fl">1.威海市环翠区华威渔具公司</span>
-                                <span class="iconfont icon-arrow-t-line fl" v-if="openIndex == index"></span>
-                                <span class="iconfont icon-arrow-b-line fl" v-else></span>
+    <div class="topBg">
+        <h1>威海市信用大数据分析平台</h1>
+        <div class="wrap">
+            <div class="left fl">
+                <div class="searchBox">
+                    <div class="top"></div>
+                    <div class="inner">
+                        <form class="clearfix">
+                            <div class="inputBox fl">
+                                <input type="text" class="input" placeholder="请输入企业、个人名称" v-model="keyword">
+                                <span class="iconfont icon-shanchu" @click="clear"></span>
                             </div>
-                            <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
-                                <p>企业法人：刘崇明</p>
-                                <p>注册资本：356万人民币</p>
-                                <p>成立日期：1992-07-17</p>
-                                <p>组织机构代码：102965276</p>
+                            <button type="submit" class="searchBtn fr">搜索</button>
+                        </form>
+                        <div class="screen screen1 clearfix">
+                            <div class="screenLeft fl">投资方式:</div>
+                            <div class="fr screenRight">
+                                <span class="item">全部</span>
+                                <span class="item cur">直接投资</span>
+                                <span class="item">股东投资</span>
+                                <span class="item">董高监法投资</span>
                             </div>
-                        </li>
-                    </ul>
-                    <p class="tips">共找到一家匹配的企业，重新搜索请点击<span class="goBack">返回</span>或直接在搜索框中输入企业、个人名称</p>
+                        </div>
+                        <div class="screen screen2 clearfix">
+                            <div class="screenLeft fl">状态:</div>
+                            <div class="fr screenRight">
+                                <span class="item cur">正常</span>
+                                <span class="item">注销</span>
+                            </div>
+                        </div>
+                        <ul class="resultList">
+                            <li class="resultItem" v-for="(item, index) in resultList">
+                                <div class="f16 resultTitle clearfix" @click="toggle(index)">
+                                    <span class="fl">1.威海市环翠区华威渔具公司</span>
+                                    <span class="iconfont icon-arrow-t-line fl" v-if="openIndex == index"></span>
+                                    <span class="iconfont icon-arrow-b-line fl" v-else></span>
+                                </div>
+                                <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
+                                    <p>企业法人：刘崇明</p>
+                                    <p>注册资本：356万人民币</p>
+                                    <p>成立日期：1992-07-17</p>
+                                    <p>组织机构代码：102965276</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <p class="tips">共找到一家匹配的企业，重新搜索请点击<span class="goBack">返回</span>或直接在搜索框中输入企业、个人名称</p>
+                    </div>
+                    <div class="bottom"></div>
                 </div>
-                <div class="bottom"></div>
-            </div>
-            <div class="searchBox searchBox2">
-                <div class="top"></div>
-                <div class="inner">
-                    <p class="f16">信用等级：</p>
+                <div class="searchBox searchBox2">
+                    <div class="top"></div>
+                    <div class="inner">
+                        <p class="f16">信用等级：</p>
+                    </div>
+                    <div class="bottom"></div>
                 </div>
-                <div class="bottom"></div>
             </div>
-        </div>
-        <div class="right fr">
-            <div class="echartBox">
-                <echart7></echart7>
+            <div class="right fr">
+                <div class="echartBox">
+                    <echart7></echart7>
+                </div>
             </div>
         </div>
     </div>
@@ -95,6 +97,9 @@ export default {
 </script>
 
 <style scoped>
+h1{
+    height: .9rem;
+}
 .right{
     padding-right: 2rem;
 }
@@ -145,6 +150,7 @@ export default {
     padding: 0 .1rem;
     font-size: .14rem;
     margin: 0 .14rem .14rem 0;
+    cursor: pointer;
 }
 .screenRight .item.cur{
     background: #1680c7;

@@ -168,6 +168,6 @@ export default {
 <style scoped>
 .echart{
     width: 100%;
-    height: 2.68rem;
+    height: 2.5rem;
 }
 </style>
