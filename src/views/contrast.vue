@@ -5,6 +5,40 @@
         <div class="left fl">
             <h2>跨行业黑名单交叉对比</h2>
             <div class="venn" id="venn"></div>
+            <div class="legend clearfix">
+                <ul class="fl">
+                    <li>
+                        <span class="icon blue fl"></span>
+                        <p class="fl">经营异常名录<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                    <li>
+                        <span class="icon yellow fl"></span>
+                        <p class="fl">法院失信被执行人<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                    <li>
+                        <span class="icon green fl"></span>
+                        <p class="fl">税务D级<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                </ul>
+                <ul class="fl">
+                    <li>
+                        <span class="icon color1 fl"></span>
+                        <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                    <li>
+                        <span class="icon color2 fl"></span>
+                        <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                    <li>
+                        <span class="icon color3 fl"></span>
+                        <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                    <li>
+                        <span class="icon color4 fl"></span>
+                        <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="right fr">
             <div class="rollBox">
@@ -81,74 +115,126 @@ export default {
     methods:{
         venn(){
             getElement('venn', $elem => {
-                this.render()
+                var width = parseInt($elem.offsetWidth);
+                var height = parseInt($elem.offsetHeight);
+
+                this.render(width, height)
             })
         },
-        render(){
+        render(width, height){
             var sets = [
-                {"sets": [0], "label": "经营异常名录", "size": 300, "fill": "#f00"},
-                {"sets": [1], "label": "法院失信被执行人", "size": 100},
-                {"sets": [2], "label": "税务D级", "size": 50},
+                {"sets": [0], "label": "经营异常名录", "size": 300, "fill": "#2694fd", "color": "#fff"},
+                {"sets": [1], "label": "税务D级", "size": 50, "fill": "#1dc674", "color": "#fff"},
+                {"sets": [2], "label": "法院失信被执行人", "size": 100, "fill": "#f4c93b", "color": "#fff"},
                 {"sets": [0, 1], "size": 20},
                 {"sets": [0, 2], "size": 10},
                 {"sets": [1, 2], "size": 20},
                 {"sets": [0, 1, 2], "size": 5}
             ]
 
-        var chart = venn.VennDiagram();
+            var chart = venn.VennDiagram({
+                width: width,
+                height: height
+            });
 
-        var div = d3.select("#venn")
-        div.datum(sets).call(chart);
+            var div = d3.select("#venn")
+            div.datum(sets).call(chart);
 
-        // div.select('g[data-venn-sets="0"]')
-        //     .style("color", "#fff");
+            // div.select('g[data-venn-sets="0"]')
+            //     .style("color", "#fff");
 
-        // var tooltip = d3.select("body").append("div")
-        //     .attr("class", "venntooltip");
+            // var tooltip = d3.select("body").append("div")
+            //     .attr("class", "venntooltip");
 
-        // div.selectAll("path")
-        //     .style("stroke-opacity", 0)
-        //     .style("stroke", "#fff")
-        //     .style("stroke-width", 1)
+            // div.selectAll("path")
+            //     .style("stroke-opacity", 0)
+            //     .style("stroke", "#fff")
+            //     .style("stroke-width", 1)
 
-        // div.selectAll("g")
-        //     .on("mouseover", function(d, i) {
-        //         // sort all the areas relative to the current item
-        //         venn.sortAreas(div, d);
+            // div.selectAll("g")
+            //     .on("mouseover", function(d, i) {
+            //         // sort all the areas relative to the current item
+            //         venn.sortAreas(div, d);
 
-        //         // Display a tooltip with the current size
-        //         tooltip.transition().duration(400).style("opacity", .9);
-        //         tooltip.text(d.size + " users");
+            //         // Display a tooltip with the current size
+            //         tooltip.transition().duration(400).style("opacity", .9);
+            //         tooltip.text(d.size + " users");
 
-        //         // highlight the current path
-        //         var selection = d3.select(this).transition("tooltip").duration(400);
-        //         selection.select("path")
-        //             .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
-        //             .style("stroke-opacity", 1);
-        //     })
+            //         // highlight the current path
+            //         var selection = d3.select(this).transition("tooltip").duration(400);
+            //         selection.select("path")
+            //             .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
+            //             .style("stroke-opacity", 1);
+            //     })
 
-        //     .on("mousemove", function() {
-        //         tooltip.style("left", (d3.event.pageX) + "px")
-        //                .style("top", (d3.event.pageY - 28) + "px");
-        //     })
+            //     .on("mousemove", function() {
+            //         tooltip.style("left", (d3.event.pageX) + "px")
+            //                .style("top", (d3.event.pageY - 28) + "px");
+            //     })
 
-        //     .on("mouseout", function(d, i) {
-        //         tooltip.transition().duration(400).style("opacity", 0);
-        //         var selection = d3.select(this).transition("tooltip").duration(400);
-        //         selection.select("path")
-        //             .style("fill-opacity", d.sets.length == 1 ? .25 : .0)
-        //             .style("stroke-opacity", 0);
-        //     });
+            //     .on("mouseout", function(d, i) {
+            //         tooltip.transition().duration(400).style("opacity", 0);
+            //         var selection = d3.select(this).transition("tooltip").duration(400);
+            //         selection.select("path")
+            //             .style("fill-opacity", d.sets.length == 1 ? .25 : .0)
+            //             .style("stroke-opacity", 0);
+            //     });
         }
     }
 }
 </script>
 
 <style scoped>
+.icon{
+    display: inline-block;
+    width: .16rem; height: .16rem;
+    border-radius: 50%;
+    margin-right: .1rem;
+}
+.icon.color4{
+    background: #47b765;
+}
+.icon.color3{
+    background: #47b765;
+}
+.icon.color2{
+    background: #47b765;
+}
+.icon.color1{
+    background: #b3af66;
+}
+.icon.blue{
+    background: #2694fd;
+}
+.icon.yellow{
+    background: #f4c93b;
+}
+.icon.green{
+    background: #1dc674;
+}
+.legend ul{
+    padding: 0 0 0 1rem;
+}
+.legend li{
+    height: .44rem;
+    line-height: .16rem;
+    padding: .14rem 0;
+}
+.legend .num{
+    padding-left: .1rem;
+}
+
+.legend{
+    font-size: .16rem;
+    color: #fff;
+}
+.yellow{
+    color: #fdd102;
+}
 .venn{
     font-size: .18rem;
     color: #fff;
-    width: 9rem; height: 6.8rem;
+    width: 9rem; height: 6.5rem;
 }
 
 .inner4{

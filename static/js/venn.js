@@ -1239,10 +1239,10 @@ function scaleSolution(solution, width, height, padding) {
 
 /*global console:true*/
 
-function VennDiagram() {
-    var width = 600,
-        height = 350,
-        padding = 15,
+function VennDiagram(option) {
+    var width = option.width || 600,
+        height = option.height || 350,
+        padding = option.padding || 10,
         duration = 1000,
         orientation = Math.PI / 2,
         normalize = true,
@@ -1258,7 +1258,7 @@ function VennDiagram() {
         // so this is the same as d3.schemeCategory10, which is only defined in d3 4.0
         // since we can support older versions of d3 as long as we don't force this,
         // I'm hackily redefining below. TODO: remove this and change to d3.schemeCategory10
-        colourScheme = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
+        colourScheme = ["#2694fd", "#f4c93b", "#1dc674", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
         colourIndex = 0,
         colours = function(key) {
             if (key in colourMap) {
@@ -1390,11 +1390,16 @@ function VennDiagram() {
         if (styled) {
             enterPath.style("fill-opacity", "0")
                 .filter(function (d) { return d.sets.length == 1; } )
-                .style("fill", function(d) { return colours(d.sets); })
+                .style("fill", function(d) {
+                    return d.fill || colours(d.sets);
+                    // return colours(d.sets);
+                })
                 .style("fill-opacity", ".8");
 
             enterText
-                .style("fill", function(d) { return d.sets.length == 1 ? colours(d.sets) : "#444"; });
+                .style("fill", function(d) {
+                    return d.color || (d.sets.length == 1 ? colours(d.sets) : "#444");
+                });
         }
 
         // update existing, using pathTween if necessary
