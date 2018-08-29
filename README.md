@@ -1,5 +1,7 @@
 # weihai
 
+[预览](https://rueen.github.io/weihai/dist/#/)
+
 > A Vue.js project
 
 ## Build Setup
