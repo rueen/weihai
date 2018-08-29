@@ -33,7 +33,7 @@ export default {
                     left : '5%',
                     right : '10%',
                     bottom : '15%',
-                    top: '10%',
+                    top: '20%',
                     containLabel : true,
                     y2: 140
                 },
@@ -44,7 +44,8 @@ export default {
                     data:[{
                         name: '法人信用记录查询',
                         textStyle: {
-                            color: '#fff'
+                            color: '#fff',
+                            fontSize:12
                         }
                     },{
                         name: '自然人信用记录查询',
@@ -62,7 +63,7 @@ export default {
                         interval:0,//横轴信息全部显示
                         rotate:-30,//-30度角倾斜显示
                         textStyle:{
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     },
                     axisLine:{
@@ -72,7 +73,13 @@ export default {
                     }
                 },
                 yAxis : {
+                    name : '查询量（次）',
                     type: 'value',
+                    axisLabel:{
+                        textStyle:{
+                            fontSize:'.12rem'
+                        }
+                    },
                     splitLine: {
                         lineStyle: {
                             // 使用深浅的间隔色

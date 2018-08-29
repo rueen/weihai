@@ -18,8 +18,94 @@ export default {
     created() {
         this.renderEchart1();
         this.renderEchart2();
+        // this.render()
     },
     methods:{
+        render(){
+            // ===================数据================
+            let data = new Array(5).fill(1).map((d) => {
+                return {
+                    name: ~~(Math.random() * 400),
+                    value: ~~(Math.random() * 40),
+                    value3: ~~(Math.random() * 40),
+                    value2: ~~(Math.random() * 40)
+                }
+            })
+
+            // =================右边要放的字段名及颜色===========
+            let items = [{
+                key: 'value', color: "#419840"
+            }, {
+                 key: 'value2', color: "#7db9ae"
+            }, {
+                 key: 'value3', color: "#74a029"
+            }] 
+                
+            data.forEach((d) => {
+                let sum = 0
+                items.forEach((i) => {
+                    sum += (d[i.key] || 0)
+                })
+                d.sum = sum
+            })
+
+            // =========================排序================
+            data.sort((a, b) => a.sum - b.sum)
+
+            // 
+            let yData = data.map((d) => d.name)
+
+            var option = {
+                grid: {
+                    top: 40,
+                    right: 10,
+                    bottom: 10,
+                    left: 20,
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    // inverse: true,
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    // data: yData,
+                    axisLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                    show: false
+                    },
+                    axisTick: {
+                        show: false
+                    }
+                },
+                series: {
+                    type: 'bar',
+                    data: [1,2,3,4,5],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'left',
+                            color: '#fff'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#7DB9AE'
+                        }
+                    }
+                }
+            }
+
+            getElement('echart2-1', $elem => {
+                let barChart = echarts.init($elem);
+                barChart.setOption(option);
+            })
+        },
         //渲染echart
         renderEchart1(){
             var option = {
@@ -35,7 +121,7 @@ export default {
                         icon: 'path://M0 0m475.973821 0l503.972282 0q475.973821 0 475.973821 475.973821l0 0q0 475.973821-475.973821 475.973822l-503.972282 0q-475.973821 0-475.973821-475.973822l0 0q0-475.973821 475.973821-475.973821Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:14
+                            fontSize:'.14rem'
                         }
                     }]
                 },
@@ -66,6 +152,7 @@ export default {
                 },
                 xAxis: {
                     type: 'value',
+                    inverse: true,
                     axisTick: { show: false },
                     axisLine: { show: false },
                     splitLine: { show: false },
@@ -73,6 +160,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
+                    position:'right',
                     data: ['公安交通执法','公安治安管理', '小作坊餐饮安全', '食品安全生产', '擅自出海作业'],
                     axisTick: { show: false },
                     axisLine: { show: false },
@@ -80,9 +168,9 @@ export default {
                     axisLabel: { 
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
-                    }
+                    },
                 },
                 series : [{
                     name:'行政处罚行业分布TOP5',
@@ -99,6 +187,12 @@ export default {
                                 }
                             },
                             barBorderRadius:[8, 8, 8, 8],
+                        }
+                    },
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'left'
                         }
                     }
                 }]
@@ -123,7 +217,7 @@ export default {
                         icon: 'path://M0 0m475.973821 0l503.972282 0q475.973821 0 475.973821 475.973821l0 0q0 475.973821-475.973821 475.973822l-503.972282 0q-475.973821 0-475.973821-475.973822l0 0q0-475.973821 475.973821-475.973821Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:14
+                            fontSize:'.14rem'
                         }
                     }]
                 },
@@ -168,7 +262,7 @@ export default {
                     axisLabel: { 
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     }
                 },

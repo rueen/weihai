@@ -20,8 +20,9 @@ export default {
         renderEchart(){
             var option = {
                 legend: {
+                    width: '90px',
                     x: '72%',
-                    y: '10%',
+                    y: 'center',
                     orient: 'vertical',
                     itemWidth: 10,
                     itemHeight: 10,
@@ -30,35 +31,35 @@ export default {
                         icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     },{
                         name: '旅游',
                         icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     },{
                         name: '计算机服务',
                         icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     },{
                         name: '电商',
                         icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     },{
                         name: '渔具',
                         icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     }]
                 },
@@ -79,7 +80,7 @@ export default {
                     data: ['乳山市','文登区','荣成市','环翠区','高区','经区','南海新区'],
                     axisLabel:{
                         textStyle:{
-                            fontSize:12
+                            fontSize:'.12rem'
                         }
                     },
                     axisLine:{

@@ -11,14 +11,19 @@
                     </div>
                 </div>
                 <div class="echartBox mt30">
-                    <h2>失信信息统计</h2>
+                    <h2 class="h2-2">失信信息统计</h2>
                     <div class="inner">
                         <echart2></echart2>
                     </div>
                 </div>
-                <div class="echartBox mt30">
+                <div class="echartBox echartBox3 mt30">
                     <h2>行业信用评价结果分析<span class="more">更多</span></h2>
                     <div class="inner">
+                        <ul class="tab">
+                            <li class="item" :class="{'cur': echart3TabIndex == 0}" @click="echart3Tab(0)">餐饮行业</li>
+                            <li class="item" :class="{'cur': echart3TabIndex == 1}" @click="echart3Tab(1)">渔船行业</li>
+                            <li class="item" :class="{'cur': echart3TabIndex == 2}" @click="echart3Tab(2)">电商行业</li>
+                        </ul>
                         <echart3></echart3>
                     </div>
                 </div>
@@ -29,7 +34,7 @@
             </div>
             <div class="right fr">
                 <div class="echartBox">
-                    <h2>信用记录查询分布图</h2>
+                    <h2 class="h2-2">信用记录查询分布图</h2>
                     <div class="inner">
                         <echart4></echart4>
                     </div>
@@ -66,7 +71,7 @@ import chartMap from "../components/chartMap.vue"
 export default {
     data() {
         return {
-            
+            echart3TabIndex: 0
         }
     },
     components:{ echart1, echart2, echart3, echart4, echart5, echart6, turntable, chartMap },
@@ -74,6 +79,9 @@ export default {
         
     },
     methods:{
+        echart3Tab(index){
+            this.echart3TabIndex = index;
+        },
         //打开对比页面
         openContrastPage(){
             this.$router.push('/contrast');
@@ -105,6 +113,34 @@ export default {
 </script>
 
 <style scoped>
+.echartBox3{
+    position: relative;
+}
+.echartBox3 .tab{
+    position: absolute;
+    top: .4rem; right: .28rem;
+    border: 1px solid #1680c7;
+    border-radius: .02rem;
+    z-index: 99;
+}
+.echartBox3 .tab .item{
+    color: #fff;
+    font-size: .12rem;
+    height: .26rem;
+    line-height: .24rem;
+    text-align: center;
+    display: inline-block;
+    float: left;
+    padding: 0 .08rem;
+    cursor: pointer;
+}
+.echartBox3 .tab .item:nth-child(1),
+.echartBox3 .tab .item:nth-child(2){
+    border-right: 1px solid #1680c7;
+}
+.echartBox3 .tab .item.cur{
+    background: #1680c7;
+}
 .layout{
     width: 100%;
     background: url(../assets/bg1.jpg) no-repeat center bottom;
@@ -135,8 +171,9 @@ export default {
 }
 .echartBox h2 .more{
     font-size: .16rem; color: #61ebe7;
+    line-height: .16rem;
     position: absolute;
-    right: .08rem; top: .05rem;
+    right: .08rem; top: .03rem;
 }
 .echartBox h2{
     font-size: .18rem;
@@ -145,6 +182,10 @@ export default {
     background-size: 100% auto;
     padding: .12rem 0 0 .16rem;
     position: relative;
+}
+.echartBox h2.h2-2{
+    background: url(../assets/echart-t2.png) no-repeat 0 0;
+    background-size: 100% auto;
 }
 .echartBox{
     background: url(../assets/echart-b.png) no-repeat 0 bottom;

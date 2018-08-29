@@ -33,7 +33,7 @@ export default {
                     left : '5%',
                     right : '5%',
                     bottom : '15%',
-                    top: '10%',
+                    top: '20%',
                     containLabel : true,
                     y2: 140
                 },
@@ -44,6 +44,9 @@ export default {
                     axisLabel:{
                         interval:0,//横轴信息全部显示
                         rotate:-30,//-30度角倾斜显示
+                        textStyle: {
+                            fontSize:'.12rem'
+                        }
                     },
                     axisLine:{
                         lineStyle:{
@@ -52,7 +55,13 @@ export default {
                     }
                 },
                 yAxis: {
+                    name : '信息量（条）',
                     type: 'value',
+                    axisLabel:{
+                        textStyle: {
+                            fontSize:'.12rem'
+                        }
+                    },
                     splitLine: {
                         lineStyle: {
                             // 使用深浅的间隔色
