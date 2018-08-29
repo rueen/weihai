@@ -13,15 +13,19 @@ export default {
         }
     },
     created() {
-        this.renderEchart();
+        getElement('echart6', $elem => {
+            var legendX = parseInt($elem.offsetWidth) - 90;
+
+            this.renderEchart(legendX);
+        })
     },
     methods:{
         //渲染echart
-        renderEchart(){
+        renderEchart(legendX){
             var option = {
                 legend: {
-                    width: '90px',
-                    x: '72%',
+                    width: 90,
+                    x: legendX,
                     y: 'center',
                     orient: 'vertical',
                     itemWidth: 10,
@@ -66,7 +70,7 @@ export default {
                 color: ['#ceb800', '#22af6a', '#00befc', '#155ae4', '#7640e4'],
                 grid: {
                     left: '3%',
-                    right: '24%',
+                    right: 90,
                     bottom: '0',
                     top: '5%',
                     containLabel: true

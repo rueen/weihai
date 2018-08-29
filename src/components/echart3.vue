@@ -26,7 +26,7 @@ export default {
                     transitionDuration: 0.2,
                     formatter: function (params) {
                         // console.log(params)
-                        return 'tooltip'
+                        return '<span style="font-size: .12rem;">tooltip</span>'
                     }
                 },
                 grid : {

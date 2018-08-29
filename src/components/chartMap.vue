@@ -115,7 +115,43 @@ export default {
                         }
                     }
                 },
+                tooltip: {
+                    trigger: 'item',
+                    padding: 10,
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        // console.log(params)
+                        return '<span style="font-size: .16rem;">信用记录查询</span><br/><span style="font-size: .14rem;">，在服务大厅查询个人信用记录</span>'
+                    }
+                },
+                visualMap: {
+                    show: false,
+                    min: 1,
+                    max: 4,
+                    color: ['#1468d9','#1f7bf8','#259cf0'],
+                    text:['High','Low'],// 文本，默认为数值文本
+                    calculable: true
+                },
                 series: [{
+                    type: 'map',
+                    map: 'weihai',
+                    geoIndex: 0,
+                    aspectScale: 0.75, //长宽比
+                    showLegendSymbol: false, // 存在legend时显示
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: false,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    data: data
+                },{
                     name: 'point',
                     type: 'effectScatter',
                     coordinateSystem: 'geo',
