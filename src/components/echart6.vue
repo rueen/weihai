@@ -23,6 +23,10 @@ export default {
         //渲染echart
         renderEchart(legendX){
             var option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c}"
+                },
                 legend: {
                     width: 90,
                     x: legendX,
@@ -30,42 +34,28 @@ export default {
                     orient: 'vertical',
                     itemWidth: 10,
                     itemHeight: 10,
-                    data:[{
-                        name: '餐饮',
-                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
-                        textStyle: {
-                            color: '#fff',
-                            fontSize:'.12rem'
-                        }
-                    },{
-                        name: '旅游',
-                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
-                        textStyle: {
-                            color: '#fff',
-                            fontSize:'.12rem'
-                        }
-                    },{
-                        name: '计算机服务',
-                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
-                        textStyle: {
-                            color: '#fff',
-                            fontSize:'.12rem'
-                        }
-                    },{
-                        name: '电商',
-                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
-                        textStyle: {
-                            color: '#fff',
-                            fontSize:'.12rem'
-                        }
-                    },{
-                        name: '渔具',
-                        icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
-                        textStyle: {
-                            color: '#fff',
-                            fontSize:'.12rem'
-                        }
-                    }]
+                    icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
+                    textStyle: {
+                        color: '#fff',
+                        fontSize:'.12rem'
+                    },
+                    data:[
+                    {
+                        name: '金融业',
+                    },
+                    {
+                        name: '租赁和商务服务业',
+                    },
+                    {
+                        name: '建筑业',
+                    },
+                    {
+                        name: '制造业',
+                    },
+                    {
+                        name: '批发和零售业',
+                    }
+                    ]
                 },
                 color: ['#ceb800', '#22af6a', '#00befc', '#155ae4', '#7640e4'],
                 grid: {
@@ -81,7 +71,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['乳山市','文登区','荣成市','环翠区','高区','经区','南海新区'],
+                    data: ['高区','环翠区','经区','临港区','荣成市','乳山市','市辖区', '文登区'],
                     axisLabel:{
                         textStyle:{
                             fontSize:'.12rem'
@@ -99,64 +89,34 @@ export default {
                 },
                 series: [
                     {
-                        name: '餐饮',
+                        name: '金融业',
                         type: 'bar',
                         stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
-                        data: [12, 11, 14, 15, 22, 24, 30]
+                        data: [139,373,170,48,700,420,319,450]
                     },
                     {
-                        name: '旅游',
+                        name: '租赁和商务服务业',
                         type: 'bar',
                         stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
-                        data: [10, 13, 11, 13, 9, 20, 21]
+                        data: [2134,3481,2128,243,1556,1109,1464,1583]
                     },
                     {
-                        name: '计算机服务',
+                        name: '建筑业',
                         type: 'bar',
                         stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
-                        data: [20, 18, 31, 24, 29, 33, 30]
+                        data: [2321,2581,2303,300,2309,1043,624,1558]
                     },
                     {
-                        name: '电商',
+                        name: '制造业',
                         type: 'bar',
                         stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
-                        data: [15, 21, 21, 14, 19, 30, 40]
+                        data: [3368,4895,2656,1157,7937,3951,3325,6802]
                     },
                     {
-                        name: '渔具',
+                        name: '批发和零售业',
                         type: 'bar',
                         stack: '总量',
-                        label: {
-                            normal: {
-                                show: true,
-                                position: 'insideRight'
-                            }
-                        },
-                        data: [80, 32, 19, 34, 12, 10, 12]
+                        data: [6884,13241,7954,1160,10242,6534,4444,8954]
                     }
                 ]
             };

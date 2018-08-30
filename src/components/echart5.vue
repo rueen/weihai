@@ -8,7 +8,7 @@
             </div>
             <div class="table-cell">
                 <p>经营异常名录</p>
-                <p class="yellow f14">1983个</p>
+                <p class="yellow f14">{{num0}}个</p>
             </div>
         </li>
         <li class="table">
@@ -17,7 +17,7 @@
             </div>
             <div class="table-cell">
                 <p>法院失信被执行人</p>
-                <p class="yellow f14">837个</p>
+                <p class="yellow f14">{{num1}}个</p>
             </div>
         </li>
         <li class="table">
@@ -26,7 +26,7 @@
             </div>
             <div class="table-cell">
                 <p>税务D 集</p>
-                <p class="yellow f14">624个</p>
+                <p class="yellow f14">{{num2}}个</p>
             </div>
         </li>
     </ul>
@@ -40,7 +40,13 @@ import getD3 from '../js/getD3.js'
 export default {
     data() {
         return {
-            
+            num0: 18884,
+            num1: 1240,
+            num2: 672,
+            num0_1: 160,
+            num0_2: 215,
+            num1_2: 81,
+            num0_1_2: 8
         }
     },
     created() {
@@ -59,13 +65,13 @@ export default {
         },
         render(width, height){
             var sets = [
-                {"sets": [0], "label": "经营异常名录", "size": 300, "fill": "#2694fd", "color": "#fff"},
-                {"sets": [1], "label": "税务D级", "size": 50, "fill": "#1dc674", "color": "#fff"},
-                {"sets": [2], "label": "法院失信被执行人", "size": 100, "fill": "#f4c93b", "color": "#fff"},
-                {"sets": [0, 1], "size": 20},
-                {"sets": [0, 2], "size": 10},
-                {"sets": [1, 2], "size": 20},
-                {"sets": [0, 1, 2], "size": 5}
+                {"sets": [0], "label": "经营异常名录", "size": this.num0, "fill": "#2694fd", "color": "#fff"},
+                {"sets": [1], "label": "税务D级", "size": this.num1, "fill": "#1dc674", "color": "#fff"},
+                {"sets": [2], "label": "法院失信被执行人", "size": this.num2, "fill": "#f4c93b", "color": "#fff"},
+                {"sets": [0, 1], "size": this.num0_1},
+                {"sets": [0, 2], "size": this.num0_2},
+                {"sets": [1, 2], "size": this.num1_2},
+                {"sets": [0, 1, 2], "size": this.num0_1_2}
             ]
 
             var chart = venn.VennDiagram({

@@ -30,8 +30,8 @@ export default {
                         radius : '80%',
                         center: ['50%', '50%'],
                         data:[{
-                                value:11,
-                                name:'渔具渔业',
+                                value:14,
+                                name:'护士',
                                 itemStyle: {
                                     normal: {
                                         color: "#1cc4c2"
@@ -39,7 +39,7 @@ export default {
                                 }
                             },
                             {
-                                value:22,
+                                value:2,
                                 name:'导游',
                                 itemStyle: {
                                     normal: {
@@ -48,7 +48,7 @@ export default {
                                 }
                             },
                             {
-                                value:13,
+                                value:0,
                                 name:'公务员',
                                 itemStyle: {
                                     normal: {
@@ -57,7 +57,7 @@ export default {
                                 }
                             },
                             {
-                                value:24,
+                                value:6,
                                 name:'医生',
                                 itemStyle: {
                                     normal: {
@@ -66,7 +66,7 @@ export default {
                                 }
                             },
                             {
-                                value:15,
+                                value:3,
                                 name:'教师',
                                 itemStyle: {
                                     normal: {

@@ -18,94 +18,8 @@ export default {
     created() {
         this.renderEchart1();
         this.renderEchart2();
-        // this.render()
     },
     methods:{
-        render(){
-            // ===================数据================
-            let data = new Array(5).fill(1).map((d) => {
-                return {
-                    name: ~~(Math.random() * 400),
-                    value: ~~(Math.random() * 40),
-                    value3: ~~(Math.random() * 40),
-                    value2: ~~(Math.random() * 40)
-                }
-            })
-
-            // =================右边要放的字段名及颜色===========
-            let items = [{
-                key: 'value', color: "#419840"
-            }, {
-                 key: 'value2', color: "#7db9ae"
-            }, {
-                 key: 'value3', color: "#74a029"
-            }] 
-                
-            data.forEach((d) => {
-                let sum = 0
-                items.forEach((i) => {
-                    sum += (d[i.key] || 0)
-                })
-                d.sum = sum
-            })
-
-            // =========================排序================
-            data.sort((a, b) => a.sum - b.sum)
-
-            // 
-            let yData = data.map((d) => d.name)
-
-            var option = {
-                grid: {
-                    top: 40,
-                    right: 10,
-                    bottom: 10,
-                    left: 20,
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'value',
-                    // inverse: true,
-                    splitLine: {
-                        show: false
-                    }
-                },
-                yAxis: {
-                    type: 'category',
-                    // data: yData,
-                    axisLine: {
-                        show: false
-                    },
-                    axisLabel: {
-                    show: false
-                    },
-                    axisTick: {
-                        show: false
-                    }
-                },
-                series: {
-                    type: 'bar',
-                    data: [1,2,3,4,5],
-                    label: {
-                        normal: {
-                            show: true,
-                            position: 'left',
-                            color: '#fff'
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#7DB9AE'
-                        }
-                    }
-                }
-            }
-
-            getElement('echart2-1', $elem => {
-                let barChart = echarts.init($elem);
-                barChart.setOption(option);
-            })
-        },
         //渲染echart
         renderEchart1(){
             var option = {
@@ -161,7 +75,7 @@ export default {
                 yAxis: {
                     type: 'category',
                     position:'right',
-                    data: ['公安交通执法','公安治安管理', '小作坊餐饮安全', '食品安全生产', '擅自出海作业'],
+                    data: ['建筑业','批发和零售业', '制造业', '租赁和商务服务业', '房地产业'],
                     axisTick: { show: false },
                     axisLine: { show: false },
                     splitLine: { show: false },
@@ -175,7 +89,7 @@ export default {
                 series : [{
                     name:'行政处罚行业分布TOP5',
                     type:'bar',
-                    data:[120, 132, 101, 134, 132],
+                    data:[136, 174, 387, 68, 186],
                     barWidth : 16,//柱图宽度
                     itemStyle : {
                         normal : {
@@ -255,7 +169,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['制造业','建筑业', '计算机服务\n和软件业', '批发零售业', '批发零售业'],
+                    data: ['房地产业','批发和零售业', '制造业', '交通运输、\n仓储和邮政业', '租赁和商务服务业'],
                     axisTick: { show: false },
                     axisLine: { show: false },
                     splitLine: { show: false },
@@ -269,7 +183,7 @@ export default {
                 series : [{
                     name:'行政处罚行业分布TOP5',
                     type:'bar',
-                    data:[120, 132, 101, 134, 132],
+                    data:[167, 344, 1921, 825, 161],
                     barWidth : 16,//柱图宽度
                     itemStyle : {
                         normal : {

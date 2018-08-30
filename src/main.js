@@ -6,6 +6,16 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+Vue.filter('NumFormat', function(value) {
+    if(value >= 100000000){
+        return (value / 100000000).toFixed(2) + '万'
+    } else if(value >= 10000){
+        return (value / 10000).toFixed(2) + '万'
+    } else {
+        return value
+    }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -10,33 +10,33 @@
                     <ul class="fl">
                         <li>
                             <span class="icon blue fl"></span>
-                            <p class="fl">经营异常名录<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">经营异常名录<span class="f16 yellow num">{{num0}}</span></p>
                         </li>
                         <li>
                             <span class="icon yellow fl"></span>
-                            <p class="fl">法院失信被执行人<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">法院失信被执行人<span class="f16 yellow num">{{num2}}</span></p>
                         </li>
                         <li>
                             <span class="icon green fl"></span>
-                            <p class="fl">税务D级<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">税务D级<span class="f16 yellow num">{{num1}}</span></p>
                         </li>
                     </ul>
                     <ul class="fl">
                         <li>
                             <span class="icon color1 fl"></span>
-                            <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">{{num0_2}}</span></p>
                         </li>
                         <li>
                             <span class="icon color2 fl"></span>
-                            <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">{{num1_2}}</span></p>
                         </li>
                         <li>
                             <span class="icon color3 fl"></span>
-                            <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">{{num0_1}}</span></p>
                         </li>
                         <li>
                             <span class="icon color4 fl"></span>
-                            <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">18,623</span></p>
+                            <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">{{num0_1_2}}</span></p>
                         </li>
                     </ul>
                 </div>
@@ -45,25 +45,25 @@
                 <div class="rollBox">
                     <h3 class="title title1"></h3>
                     <div class="inner inner1">
-                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                        <roll :height=".3" :contentArr="rollList1" v-if="rollList1.length > 0"></roll>
                     </div>
                 </div>
                 <div class="rollBox">
                     <h3 class="title title2"></h3>
                     <div class="inner inner2">
-                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                        <roll :height=".3" :contentArr="rollList2" v-if="rollList2.length > 0"></roll>
                     </div>
                 </div>
                 <div class="rollBox">
                     <h3 class="title title3"></h3>
                     <div class="inner inner3">
-                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                        <roll :height=".3" :contentArr="rollList3" v-if="rollList3.length > 0"></roll>
                     </div>
                 </div>
                 <div class="rollBox">
                     <h3 class="title title4"></h3>
                     <div class="inner inner4">
-                        <roll :height=".3" :contentArr="rollList" v-if="rollList.length > 0"></roll>
+                        <roll :height=".3" :contentArr="rollList4" v-if="rollList4.length > 0"></roll>
                     </div>
                 </div>
             </div>
@@ -76,39 +76,22 @@
 import roll from '../components/roll.vue';
 import getElement from '../js/getElement.js'
 import getD3 from '../js/getD3.js'
+import contrastData from '../js/contrast.js'
 
 export default {
     data() {
         return {
-            rollList: [{
-                title: '0静雅食品集团有限公司'
-            },{
-                title: '1静雅食品集团有限公司'
-            },{
-                title: '2静雅食品集团有限公司'
-            },{
-                title: '3静雅食品集团有限公司'
-            },{
-                title: '4静雅食品集团有限公司'
-            },{
-                title: '5静雅食品集团有限公司'
-            },{
-                title: '6静雅食品集团有限公司'
-            },{
-                title: '7静雅食品集团有限公司'
-            },{
-                title: '8静雅食品集团有限公司'
-            },{
-                title: '9静雅食品集团有限公司'
-            },{
-                title: '10静雅食品集团有限公司'
-            },{
-                title: '11静雅食品集团有限公司'
-            },{
-                title: '12静雅食品集团有限公司'
-            },{
-                title: '13静雅食品集团有限公司'
-            }]
+            num0: 18884,
+            num1: 1240,
+            num2: 672,
+            num0_1: 160,
+            num0_2: 215,
+            num1_2: 81,
+            num0_1_2: 8,
+            rollList1: contrastData['0&2'],
+            rollList2: contrastData['2&1'],
+            rollList3: contrastData['0&1'],
+            rollList4: contrastData['0&2&1']
         }
     },
     components:{ roll },
@@ -128,13 +111,13 @@ export default {
         },
         render(width, height){
             var sets = [
-                {"sets": [0], "label": "经营异常名录", "size": 300, "fill": "#2694fd", "color": "#fff"},
-                {"sets": [1], "label": "税务D级", "size": 50, "fill": "#1dc674", "color": "#fff"},
-                {"sets": [2], "label": "法院失信被执行人", "size": 100, "fill": "#f4c93b", "color": "#fff"},
-                {"sets": [0, 1], "size": 20},
-                {"sets": [0, 2], "size": 10},
-                {"sets": [1, 2], "size": 20},
-                {"sets": [0, 1, 2], "size": 5}
+                {"sets": [0], "label": "经营异常名录", "size": this.num0, "fill": "#2694fd", "color": "#fff"},
+                {"sets": [1], "label": "税务D级", "size": this.num1, "fill": "#1dc674", "color": "#fff"},
+                {"sets": [2], "label": "法院失信被执行人", "size": this.num2, "fill": "#f4c93b", "color": "#fff"},
+                {"sets": [0, 1], "size": this.num0_1},
+                {"sets": [0, 2], "size": this.num0_2},
+                {"sets": [1, 2], "size": this.num1_2},
+                {"sets": [0, 1, 2], "size": this.num0_1_2}
             ]
 
             var chart = venn.VennDiagram({
@@ -144,46 +127,6 @@ export default {
 
             var div = d3.select("#venn")
             div.datum(sets).call(chart);
-
-            // div.select('g[data-venn-sets="0"]')
-            //     .style("color", "#fff");
-
-            // var tooltip = d3.select("body").append("div")
-            //     .attr("class", "venntooltip");
-
-            // div.selectAll("path")
-            //     .style("stroke-opacity", 0)
-            //     .style("stroke", "#fff")
-            //     .style("stroke-width", 1)
-
-            // div.selectAll("g")
-            //     .on("mouseover", function(d, i) {
-            //         // sort all the areas relative to the current item
-            //         venn.sortAreas(div, d);
-
-            //         // Display a tooltip with the current size
-            //         tooltip.transition().duration(400).style("opacity", .9);
-            //         tooltip.text(d.size + " users");
-
-            //         // highlight the current path
-            //         var selection = d3.select(this).transition("tooltip").duration(400);
-            //         selection.select("path")
-            //             .style("fill-opacity", d.sets.length == 1 ? .4 : .1)
-            //             .style("stroke-opacity", 1);
-            //     })
-
-            //     .on("mousemove", function() {
-            //         tooltip.style("left", (d3.event.pageX) + "px")
-            //                .style("top", (d3.event.pageY - 28) + "px");
-            //     })
-
-            //     .on("mouseout", function(d, i) {
-            //         tooltip.transition().duration(400).style("opacity", 0);
-            //         var selection = d3.select(this).transition("tooltip").duration(400);
-            //         selection.select("path")
-            //             .style("fill-opacity", d.sets.length == 1 ? .25 : .0)
-            //             .style("stroke-opacity", 0);
-            //     });
         }
     }
 }

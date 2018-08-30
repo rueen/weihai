@@ -2,11 +2,11 @@
 <div class="turntable">
     <img src="../assets/zhuan.gif" alt="" class="zhuan">
     <div class="tips">
-        <div class="p-1 f16">归集数量<div class="fr yellow"><span class="f30">3.1</span><span class="f26">亿条</span></div></div>
-        <div class="p-2 f14">法人归集数量<div class="fr yellow"><span class="f24">1.09</span><span class="f20">万条</span></div></div>
-        <div class="p-3 f14">自然人归集数量<div class="fr red"><span class="f24">1.21</span><span class="f20">万条</span></div></div>
-        <div class="p-4 f14">行政许可数量<div class="fr yellow"><span class="f24">1.09</span><span class="f20">万条</span></div></div>
-        <div class="p-5 f14">行政处罚数量<div class="fr yellow"><span class="f24">1.09</span><span class="f20">万条</span></div></div>
+        <div class="p-1 f16">归集数量<div class="fr yellow"><span class="f30">{{total | NumFormat}}</span><span class="f26">条</span></div></div>
+        <div class="p-2 f14">法人归集数量<div class="fr yellow"><span class="f24">{{num1 | NumFormat}}</span><span class="f20">条</span></div></div>
+        <div class="p-3 f14">自然人归集数量<div class="fr red"><span class="f24">{{num2 | NumFormat}}</span><span class="f20">条</span></div></div>
+        <div class="p-4 f14">行政许可数量<div class="fr yellow"><span class="f24">{{num3 | NumFormat}}</span><span class="f20">条</span></div></div>
+        <div class="p-5 f14">行政处罚数量<div class="fr yellow"><span class="f24">{{num4 | NumFormat}}</span><span class="f20">条</span></div></div>
         <div class="top-left"></div>
         <div class="bottom-left"></div>
     </div>
@@ -17,7 +17,15 @@
 export default {
     data() {
         return {
-            
+            num1: 105930575,
+            num2: 124230551,
+            num3: 522222,
+            num4: 57454
+        }
+    },
+    computed: {
+        total(){
+            return this.num1 + this.num2 + this.num3 + this.num4;
         }
     },
     created() {

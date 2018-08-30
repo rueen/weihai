@@ -2,10 +2,10 @@
     <div class="rollScreen_container" id="rollScreen_container">
         <ul class="rollScreen_list" :style="{ transform:transform}" :class="{rollScreen_list_unanim:num===0}">
             <li class="rollScreen_once" @tap="onTap(item)" v-for="(item,index) in contentArr" :key=index :style="{height:height+'rem',lineHeight:height+'rem'}">
-                <span>{{item.title}}</span>
+                <span>{{item}}</span>
             </li>
             <li class="rollScreen_once" @tap="onTap(item)" v-for="(item,index) in contentArr" :key=index+contentArr.length :style="{height:height+'rem',lineHeight:height+'rem'}">
-                <span>{{item.title}}</span>
+                <span>{{item}}</span>
             </li>
             <slot name="slide"></slot>
         </ul>

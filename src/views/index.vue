@@ -71,7 +71,7 @@ import chartMap from "../components/chartMap.vue"
 export default {
     data() {
         return {
-            echart3TabIndex: 0
+            echart3TabIndex: 1
         }
     },
     components:{ echart1, echart2, echart3, echart4, echart5, echart6, turntable, chartMap },
