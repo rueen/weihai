@@ -1,120 +1,90 @@
 <template>
-<div class="echart" id="echart1"></div>
+  <div class="echart" id="echart1"></div>
 </template>
 
 <script>
-import echarts from 'echarts'
-import getElement from '../js/getElement.js'
+  import echarts from 'echarts'
+  import { getData, ZDRQ_COLOR } from '@/js/getData'
 
-export default {
+  export default {
     data() {
-        return {
-            
+      return {
+          result: []
+      }
+    },
+    mounted() {
+      // this.render()
+      getData('getScreen', '重点人群失信占比分析').then((response) => {
+        let result = response.rows.sort(function (a, b) {
+          return (~~b.VALUE_) - (~~a.VALUE_)
+        })
+
+        let _length = Math.min(5, result.length);
+        for(let i = 0; i < _length; i++) {
+          let obj = {}
+          obj.name = result[i]['KEY_']
+          obj.value = result[i]['VALUE_']
+          obj.itemStyle = {
+            normal: {
+              color: ZDRQ_COLOR[i]
+            }
+          }
+          this.result.push(obj)
         }
+        this.renderEchart()
+      })
     },
-    created() {
-        // this.render()
-        this.renderEchart();
-    },
-    methods:{
-        //渲染echart
-        renderEchart(){
-            var option = {
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                series : [
-                    {
-                        type:'pie',
-                        radius : '80%',
-                        center: ['50%', '50%'],
-                        data:[{
-                                value:14,
-                                name:'护士',
-                                itemStyle: {
-                                    normal: {
-                                        color: "#1cc4c2"
-                                    }
-                                }
-                            },
-                            {
-                                value:2,
-                                name:'导游',
-                                itemStyle: {
-                                    normal: {
-                                        color: "#22af6a"
-                                    }
-                                }
-                            },
-                            {
-                                value:0,
-                                name:'公务员',
-                                itemStyle: {
-                                    normal: {
-                                        color: "#dcba1a"
-                                    }
-                                }
-                            },
-                            {
-                                value:6,
-                                name:'医生',
-                                itemStyle: {
-                                    normal: {
-                                        color: "#d57b32"
-                                    }
-                                }
-                            },
-                            {
-                                value:3,
-                                name:'教师',
-                                itemStyle: {
-                                    normal: {
-                                        color: "#4094e4"
-                                    }
-                                }
-                            }
-                        ].sort(function (a, b) { return a.value - b.value; }),
-                        roseType: 'radius',
-                        label: {
-                            normal: {
-                                textStyle: {
-                                    color: '#fff',
-                                    fontSize: '.12rem'
-                                }
-                            }
-                        },
-                        labelLine: {
-                            normal: {
-                                lineStyle: {
-                                    color: 'rgba(255, 255, 255, 0.8)'
-                                },
-                                smooth: 0.2,
-                                length: 10,
-                                length2: 20
-                            }
-                        },
-                        animationType: 'scale',
-                        animationEasing: 'elasticOut',
-                        animationDelay: function (idx) {
-                            return Math.random() * 200;
-                        }
-                    }
-                ]
-            };
-            
-            getElement('echart1', $elem => {
-                let barChart = echarts.init($elem);
-                barChart.setOption(option);
-            })
-        },
+    methods: {
+      //渲染echart
+      renderEchart(){
+        var option = {
+          tooltip: {
+            trigger: 'item',
+            formatter: "{b} : {c}人 ({d}%)"
+          },
+          series: [
+            {
+              type: 'pie',
+              radius: '80%',
+              center: ['50%', '50%'],
+              data: this.result,
+              label: {
+                normal: {
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: '.12rem'
+                  }
+                }
+              },
+              labelLine: {
+                normal: {
+                  lineStyle: {
+                    color: 'rgba(255, 255, 255, 0.8)'
+                  },
+                  smooth: 0.2,
+                  length: 10,
+                  length2: 20
+                }
+              },
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: function (idx) {
+                return Math.random() * 200;
+              }
+            }
+          ]
+        };
+
+        let barChart = echarts.init(document.getElementById("echart1"));
+        barChart.setOption(option);
+      }
     }
-}
+  }
 </script>
 
 <style scoped>
-.echart{
+  .echart {
     width: 100%;
     height: 2.38rem;
-}
+  }
 </style>
