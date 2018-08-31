@@ -40,13 +40,13 @@
                     </div>
                 </div>
                 <div class="echartBox mt30">
-                    <h2>跨行业黑名单交叉对比<span class="more link" @click="openContrastPage">更多</span></h2>
+                    <h2>跨行业黑名单交叉对比<router-link class="more link" tag="span" to="/contrast">更多</router-link></h2>
                     <div class="inner">
                         <echart5></echart5>
                     </div>
                 </div>
                 <div class="echartBox mt30">
-                    <h2>企业关联分析图<span class="more link" @click="openAnalysisPage">更多</span></h2>
+                    <h2>企业关联分析图<router-link class="more link" tag="span" to="/analysis">更多</router-link></h2>
                     <div class="inner">
                         <echart6></echart6>
                     </div>
@@ -76,19 +76,11 @@ export default {
     },
     components:{ echart1, echart2, echart3, echart4, echart5, echart6, turntable, chartMap },
     created() {
-        
+
     },
     methods:{
         echart3Tab(index){
             this.echart3TabIndex = index;
-        },
-        //打开对比页面
-        openContrastPage(){
-            this.$router.push('/contrast');
-        },
-        //打开分析页面
-        openAnalysisPage(){
-            this.$router.push('/analysis');
         },
         getElement(id,callback){
             var i = 0,
@@ -106,7 +98,7 @@ export default {
                         }
                     }
                 },
-                timer = setInterval(fun, 50);
+                timer = setInterval(fun, 5000);
         },
     }
 }
