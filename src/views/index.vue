@@ -20,9 +20,9 @@
                     <h2>行业信用评价结果分析<span class="more">更多</span></h2>
                     <div class="inner">
                         <ul class="tab">
-                            <li class="item" :class="{'cur': echart3TabIndex == 0}" @click="echart3Tab(0)">餐饮行业</li>
-                            <li class="item" :class="{'cur': echart3TabIndex == 1}" @click="echart3Tab(1)">渔船行业</li>
-                            <li class="item" :class="{'cur': echart3TabIndex == 2}" @click="echart3Tab(2)">电商行业</li>
+                            <li class="item" :class="{'cur': echart3TabIndex == '餐饮行业'}" @click="echart3Tab('餐饮行业')">餐饮行业</li>
+                            <li class="item" :class="{'cur': echart3TabIndex == '渔船行业'}" @click="echart3Tab('渔船行业')">渔船行业</li>
+                            <li class="item" :class="{'cur': echart3TabIndex == '电商行业'}" @click="echart3Tab('电商行业')">电商行业</li>
                         </ul>
                         <echart3></echart3>
                     </div>
@@ -71,7 +71,7 @@ import chartMap from "../components/chartMap.vue"
 export default {
     data() {
         return {
-            echart3TabIndex: 1
+            echart3TabIndex: '渔船行业'
         }
     },
     components:{ echart1, echart2, echart3, echart4, echart5, echart6, turntable, chartMap },
@@ -79,8 +79,8 @@ export default {
 
     },
     methods:{
-        echart3Tab(index){
-            this.echart3TabIndex = index;
+        echart3Tab(temp){
+            this.echart3TabIndex = temp;
         },
         getElement(id,callback){
             var i = 0,
@@ -111,24 +111,29 @@ export default {
 .echartBox3 .tab{
     position: absolute;
     top: .4rem; right: .28rem;
-    border: 1px solid #1680c7;
-    border-radius: .02rem;
     z-index: 99;
+    height: .28rem;
 }
 .echartBox3 .tab .item{
     color: #fff;
     font-size: .12rem;
-    height: .26rem;
-    line-height: .24rem;
+    height: 100%;
     text-align: center;
-    display: inline-block;
     float: left;
     padding: 0 .08rem;
     cursor: pointer;
-}
-.echartBox3 .tab .item:nth-child(1),
-.echartBox3 .tab .item:nth-child(2){
+    vertical-align: middle;
+    border-top: 1px solid #1680c7;
+    border-bottom: 1px solid #1680c7;
     border-right: 1px solid #1680c7;
+    line-height: .22rem;
+}
+.echartBox3 .tab .item:nth-child(1){
+    border-left: 1px solid #1680c7;
+    border-radius: 2px 0 0 2px;
+}
+.echartBox3 .tab .item:nth-child(3){
+    border-radius: 0 2px 2px 0;
 }
 .echartBox3 .tab .item.cur{
     background: #1680c7;
@@ -170,7 +175,7 @@ export default {
 .echartBox h2{
     font-size: .18rem;
     background: url(../assets/echart-t.png) no-repeat 0 0;
-    height: .42rem;
+    height: .41rem;
     background-size: 100% auto;
     padding: .12rem 0 0 .16rem;
     position: relative;

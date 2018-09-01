@@ -5,18 +5,35 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
+import { getData, ZDRQ_COLOR } from '@/js/getData'
 
 export default {
     data() {
         return {
-            
+            legend: [],
+            names: []
         }
     },
     created() {
-        getElement('echart6', $elem => {
-            var legendX = parseInt($elem.offsetWidth) - 90;
+        getData('getScreen', '企业关联分析图').then((response) => {
+            var result = response.rows.sort(function(a, b) {
+                return (~~b.VALUE_) - (~~a.VALUE_)
+            }), namesArr = [], legendArr = [];
 
-            this.renderEchart(legendX);
+            console.log(result)
+            result.forEach((val) => {
+                namesArr.push(val['KEY_'])
+            })
+
+            this.names = Array.from(new Set(namesArr));
+
+            console.log(this.names)
+
+            getElement('echart6', $elem => {
+                var legendX = parseInt($elem.offsetWidth) - 90;
+
+                this.renderEchart(legendX);
+            })
         })
     },
     methods:{
@@ -71,7 +88,7 @@ export default {
                 },
                 yAxis: {
                     type: 'category',
-                    data: ['高区','环翠区','经区','临港区','荣成市','乳山市','市辖区', '文登区'],
+                    data: this.names,
                     axisLabel:{
                         textStyle:{
                             fontSize:'.12rem'

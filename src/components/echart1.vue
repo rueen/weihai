@@ -1,90 +1,100 @@
 <template>
-  <div class="echart" id="echart1"></div>
+    <div class="echart" id="echart1"></div>
 </template>
 
 <script>
-  import echarts from 'echarts'
-  import { getData, ZDRQ_COLOR } from '@/js/getData'
+import echarts from 'echarts'
+import { getData, ZDRQ_COLOR } from '@/js/getData'
 
-  export default {
+export default {
     data() {
-      return {
-          result: []
-      }
+        return {
+            result: []
+        }
     },
     mounted() {
-      // this.render()
-      getData('getScreen', '重点人群失信占比分析').then((response) => {
-        let result = response.rows.sort(function (a, b) {
-          return (~~b.VALUE_) - (~~a.VALUE_)
-        })
+        // this.render()
+        getData('getScreen', '重点人群失信占比分析').then((response) => {
+            let result = response.rows.sort(function(a, b) {
+                return (~~b.VALUE_) - (~~a.VALUE_)
+            })
 
-        let _length = Math.min(5, result.length);
-        for(let i = 0; i < _length; i++) {
-          let obj = {}
-          obj.name = result[i]['KEY_']
-          obj.value = result[i]['VALUE_']
-          obj.itemStyle = {
-            normal: {
-              color: ZDRQ_COLOR[i]
+            let _length = Math.min(5, result.length);
+            for (let i = 0; i < _length; i++) {
+                if (result[i].VALUE_ > 0) {
+                    let obj = {}
+                    obj.name = result[i]['KEY_']
+                    obj.value = result[i]['VALUE_']
+                    obj.itemStyle = {
+                        normal: {
+                            color: ZDRQ_COLOR[i]
+                        }
+                    }
+                    this.result.push(obj)
+                }
             }
-          }
-          this.result.push(obj)
-        }
-        this.renderEchart()
-      })
+            this.renderEchart()
+        })
     },
     methods: {
-      //渲染echart
-      renderEchart(){
-        var option = {
-          tooltip: {
-            trigger: 'item',
-            formatter: "{b} : {c}人 ({d}%)"
-          },
-          series: [
-            {
-              type: 'pie',
-              radius: '80%',
-              center: ['50%', '50%'],
-              data: this.result,
-              label: {
-                normal: {
-                  textStyle: {
-                    color: '#fff',
-                    fontSize: '.12rem'
-                  }
-                }
-              },
-              labelLine: {
-                normal: {
-                  lineStyle: {
-                    color: 'rgba(255, 255, 255, 0.8)'
-                  },
-                  smooth: 0.2,
-                  length: 10,
-                  length2: 20
-                }
-              },
-              animationType: 'scale',
-              animationEasing: 'elasticOut',
-              animationDelay: function (idx) {
-                return Math.random() * 200;
-              }
-            }
-          ]
-        };
+        //渲染echart
+        renderEchart() {
+            var option = {
+                // tooltip: {
+                //     trigger: 'item',
+                //     formatter: "{b} : {c}人 ({d}%)"
+                // },
+                tooltip: {
+                    trigger: 'item',
+                    padding: [5,10,5,10],
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        console.log(params)
+                        return `<p style="font-size: .12rem;">${params.name} : ${params.value}条（${params.percent}%）</p>`
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    radius: '80%',
+                    center: ['50%', '50%'],
+                    data: this.result,
+                    label: {
+                        normal: {
+                            textStyle: {
+                                color: '#fff',
+                                fontSize: '.12rem'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            },
+                            smooth: 0.2,
+                            length: 10,
+                            length2: 20
+                        }
+                    },
+                    animationType: 'scale',
+                    animationEasing: 'elasticOut',
+                    animationDelay: function(idx) {
+                        return Math.random() * 200;
+                    }
+                }]
+            };
 
-        let barChart = echarts.init(document.getElementById("echart1"));
-        barChart.setOption(option);
-      }
+            let barChart = echarts.init(document.getElementById("echart1"));
+            barChart.setOption(option);
+        }
     }
-  }
+}
 </script>
 
 <style scoped>
-  .echart {
+.echart {
     width: 100%;
     height: 2.38rem;
-  }
+}
 </style>

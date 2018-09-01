@@ -5,15 +5,34 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
+import { getData, ZDRQ_COLOR } from '@/js/getData'
 
 export default {
     data() {
         return {
-            
+            result: {
+                names: [],
+                values: []
+            }
         }
     },
     created() {
-        this.renderEchart();
+        getData('getScreen', '行业信用评价结果分析').then((response) => {
+            var result = response.rows.sort(function(a, b) {
+                return Date.parse(new Date(a.TEMP_)) - Date.parse(new Date(b.TEMP_))
+            });
+
+            if(result.length > 8){
+                result = result.splice(result.length - 8, result.length);
+            }
+
+            result.forEach((val) => {
+                this.result.names.push(val['TEMP_'])
+                this.result.values.push(val['VALUE_'])
+            })
+
+            this.renderEchart();
+        })
     },
     methods:{
         //渲染echart
@@ -21,27 +40,25 @@ export default {
             var option = {
                 tooltip: {
                     trigger: 'item',
-                    padding: 10,
+                    padding: [5,10,5,10],
                     showDelay: 0,
                     transitionDuration: 0.2,
                     formatter: function (params) {
-                        // console.log(params)
-                        return '<span style="font-size: .12rem;">tooltip</span>'
+                        return `<span style="font-size: .12rem;">${params.seriesName}：</span><p style="font-size: .12rem;">${params.name} : ${params.value}条</p>`
                     }
                 },
                 grid : {
-                    left : '5%',
-                    right : '5%',
-                    bottom : '15%',
-                    top: '20%',
+                    left : 20,
+                    right : 35,
+                    bottom : 20,
+                    top: 35,
                     containLabel : true,
                     y2: 140
                 },
-                color: ['#b2a244', '#3e2dab'],
+                color: ['#fff001', '#3e2dab'],
                 xAxis : {
                     type : 'category',
-                    data: ['2014-06','2014-07','2014-08','2014-09','2015-07','2015-10','2015-11','2015-12','2016-01','2016-06','2016-07','2016-08','2016-10','2016-11','2016-12','2017-01','2017-08','2017-09','2018-05','2018-07'],
-                    // data : ['2014-06','2014-07','2014-08','2014-09','2014-10','2015-05','2015-06','2015-07','2015-08','2015-10','2015-11','2015-12','2016-01','2016-02','2016-03','2016-05','2016-06','2016-07','2016-08','2016-09','2016-10','2016-11','2016-12','2017-01','2017-02','2017-03','2017-04','2017-05','2017-08','2017-09','2017-10','2017-11','2018-05','2018-07'],
+                    data: this.result.names,
                     axisLabel:{
                         interval:0,//横轴信息全部显示
                         rotate:-30,//-30度角倾斜显示
@@ -81,8 +98,14 @@ export default {
                         type:'line',
                         stack: '总量',
                         areaStyle: {normal: {}},
-                        data: [20,28,30,28,12,18,48,20,16,40,14,24,58,10,22,50,84,38,32,16]
-                        // data:[20,28,30,28,8,2,8,12,2,18,48,20,16,4,2,4,40,14,24,6,58,10,22,50,2,2,2,8,84,38,6,4,32,16,],
+                        itemStyle : {
+                            normal : {
+                                lineStyle:{
+                                    color:'#ffcd04'
+                                }
+                            }
+                        },
+                        data: this.result.values,
                     },
                     // {
                     //     name:'信用等级',
