@@ -3,6 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+const config = require("../src/config");
 
 module.exports = {
   dev: {
@@ -11,12 +12,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-            '/apis': {    //将www.exaple.com印射为/apis
-                target: 'http://www.sdwhcredit.gov.cn',  // 接口域名
+            [config.ROOT]: {    //将www.sdwhcredit.gov.cn印射为/apis
+                target: config.PROXYROOT,  // 接口域名
                 secure: false,  // 如果是https接口，需要配置这个参数
                 changeOrigin: true,  //是否跨域
                 pathRewrite: {
-                    '^/apis': ''   //需要rewrite的,
+                    [`^${config.ROOT}`]: ''   //需要rewrite的
                 }              
             }
       },
