@@ -2,19 +2,25 @@
 <div class="layout">
     <div class="topBg">
         <h1>威海市信用大数据分析平台</h1>
+        <div class="goBck">
+            <router-link class="more link" tag="span" to="/">
+                <span class="iconfont icon-siglypharrowbackward"></span>
+                返回
+            </router-link>
+        </div>
         <div class="wrap">
             <div class="left fl">
                 <div class="searchBox">
                     <div class="top"></div>
                     <div class="inner">
-                        <form class="clearfix">
+                        <form class="clearfix" @submit.prevent="search">
                             <div class="inputBox fl">
                                 <input type="text" class="input" placeholder="请输入企业、个人名称" v-model="keyword">
-                                <span class="iconfont icon-shanchu" @click="clear"></span>
+                                <span class="iconfont icon-shanchu" @click="reSearch"></span>
                             </div>
                             <button type="submit" class="searchBtn fr">搜索</button>
                         </form>
-                        <div class="screen screen1 clearfix">
+                        <!-- <div class="screen screen1 clearfix">
                             <div class="screenLeft fl">投资方式:</div>
                             <div class="fr screenRight">
                                 <span class="item">全部</span>
@@ -29,23 +35,23 @@
                                 <span class="item cur">正常</span>
                                 <span class="item">注销</span>
                             </div>
-                        </div>
+                        </div> -->
+                        <p class="loading" v-if="isLoading">加载中……</p>
                         <ul class="resultList">
                             <li class="resultItem" v-for="(item, index) in resultList">
-                                <div class="f16 resultTitle clearfix" @click="toggle(index)">
-                                    <span class="fl">1.威海市环翠区华威渔具公司</span>
-                                    <span class="iconfont icon-arrow-t-line fl" v-if="openIndex == index"></span>
-                                    <span class="iconfont icon-arrow-b-line fl" v-else></span>
+                                <div class="f16 resultTitle clearfix">
+                                    <span class="fl" @click="renderAtlas(item)">{{index + 1}}.{{item.QYMC}}</span>
+                                    <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}" @click="toggle(index)" v-if=""></span>
                                 </div>
                                 <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
-                                    <p>企业法人：刘崇明</p>
+                                    <p>企业法人：{{item.FRDBXM}}</p>
                                     <p>注册资本：356万人民币</p>
                                     <p>成立日期：1992-07-17</p>
-                                    <p>组织机构代码：102965276</p>
+                                    <p>组织机构代码：{{item.ENTERPRISE_ID}}</p>
                                 </div>
                             </li>
                         </ul>
-                        <p class="tips">共找到一家匹配的企业，重新搜索请点击<span class="goBack">返回</span>或直接在搜索框中输入企业、个人名称</p>
+                        <p class="tips" v-if="resultList.length > 0">共找到{{total}}家匹配的企业，重新搜索请点击<span class="goBack" @click="reSearch">返回</span>或直接在搜索框中输入企业、个人名称</p>
                     </div>
                     <div class="bottom"></div>
                 </div>
@@ -53,13 +59,33 @@
                     <div class="top"></div>
                     <div class="inner">
                         <p class="f16">信用等级：</p>
+                        <ul class="legend">
+                            <li class="item">
+                                <span class="icon color1 fl"></span>AAA级
+                            </li>
+                            <li class="item">
+                                <span class="icon color2 fl"></span>AA级
+                            </li>
+                            <li class="item">
+                                <span class="icon color3 fl"></span>A级
+                            </li>
+                            <li class="item">
+                                <span class="icon color4 fl"></span>B级
+                            </li>
+                            <li class="item">
+                                <span class="icon color5 fl"></span>C级
+                            </li>
+                            <li class="item">
+                                <span class="icon color6 fl"></span>D级
+                            </li>
+                        </ul>
                     </div>
                     <div class="bottom"></div>
                 </div>
             </div>
             <div class="right fr">
                 <div class="echartBox">
-                    <echart7></echart7>
+                    <echart7 ref="echart7"></echart7>
                 </div>
             </div>
         </div>
@@ -69,12 +95,16 @@
 
 <script>
 import echart7 from "../components/echart7.vue"
+import { search } from '@/js/getData'
+
 export default {
     data() {
         return {
             keyword: '',
-            resultList: [1,2],
-            openIndex: null
+            total: 0,
+            resultList: [],
+            openIndex: null,
+            isLoading: false
         }
     },
     components: { echart7 },
@@ -82,8 +112,24 @@ export default {
 
     },
     methods:{
-        clear(){
+        //渲染图谱
+        renderAtlas(data){
+            this.$refs.echart7.render(data.ENTERPRISE_ID)
+        },
+        //重新搜索
+        reSearch(){
             this.keyword = '';
+            this.resultList = [];
+        },
+        search(){
+            this.isLoading = true;
+            search(this.keyword).then((response) => {
+                let result = response.rows;
+
+                this.isLoading = false;
+                this.total = response.total;
+                this.resultList = result;
+            })
         },
         toggle(index){
             if(this.openIndex == index){
@@ -97,6 +143,51 @@ export default {
 </script>
 
 <style scoped>
+.loading{
+    text-align: center;
+    font-size: .12rem;
+    padding: .2rem 0;
+    color: #9fc5df;
+}
+.legend{
+    padding: .1rem 0 .1rem 0;
+    overflow: hidden;
+}
+.legend .item{
+    float: left;
+    height: .4rem;
+    font-size: .16rem;
+    line-height: .16rem;
+    padding: .2rem 0;
+    width: 1.7rem;
+}
+.legend .item:nth-child(3n){
+    width: 1rem;
+}
+.icon{
+    display: inline-block;
+    width: .16rem; height: .16rem;
+    border-radius: 50%;
+    margin-right: .14rem;
+}
+.icon.color1{
+    background: #665bde;
+}
+.icon.color2{
+    background: #e75686;
+}
+.icon.color3{
+    background: #3565ff;
+}
+.icon.color4{
+    background: #00b6c6;
+}
+.icon.color5{
+    background: #d3bd01;
+}
+.icon.color6{
+    background: #69ba20;
+}
 h1{
     height: .9rem;
 }
@@ -184,6 +275,7 @@ h1{
     font-size: .16rem;
     background: #1680c7;
     border-radius: .04rem;
+    cursor: pointer;
 }
 .searchBox .input{
     width: 100%; height: 100%;

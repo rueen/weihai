@@ -16,6 +16,18 @@ export const getData = async (dispatch, type, temp = '', page = 1, rows = 10) =>
     .then((json) => json['result'])
 }
 
+export const search = async (qymc) => {
+  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=getQyList&page=1&size=10&qymc=${qymc}`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
+export const getScreenEnterprise = async (id) => {
+  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=getScreenEnterprise&enterpriseId=${id}`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
 /**
  * 图标1的颜色
  * @type {Array}

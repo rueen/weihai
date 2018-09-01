@@ -6,8 +6,10 @@
 import getElement from '../js/getElement.js'
 import getD3 from '../js/getD3.js'
 import analysisJson from '../json/analysis.json'
+import { getScreenEnterprise } from '@/js/getData'
 
 export default {
+    // props: ['id'],
     data() {
         return {
             relation: {},
@@ -30,6 +32,11 @@ export default {
         })
     },
     methods: {
+        render(ENTERPRISE_ID){
+            getScreenEnterprise(ENTERPRISE_ID).then((response) => {
+                console.log(response)
+            })
+        },
         showd3(width, height) {
             //        节点大小（圆圈大小）
             // const nodeSize = 30

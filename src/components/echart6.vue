@@ -5,32 +5,77 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import { getData, ZDRQ_COLOR } from '@/js/getData'
+import { getData } from '@/js/getData'
 
 export default {
     data() {
         return {
             legend: [],
-            names: []
+            names: [],
+            series: [],
+            legendW: 0
         }
     },
     created() {
         getData('getScreen', '企业关联分析图').then((response) => {
-            var result = response.rows.sort(function(a, b) {
-                return (~~b.VALUE_) - (~~a.VALUE_)
-            }), namesArr = [], legendArr = [];
+            var result = response.rows, TEMP_arr = [], KEY_arr = {};
 
-            console.log(result)
+            // console.log(result)
             result.forEach((val) => {
-                namesArr.push(val['KEY_'])
+                TEMP_arr.push(val['TEMP_']);
+                if(!KEY_arr[val['KEY_']]){
+                    KEY_arr[val['KEY_']] = {};
+                }
+                KEY_arr[val['KEY_']][val['TEMP_']] = val['VALUE_']
             })
 
-            this.names = Array.from(new Set(namesArr));
+            for(let index in KEY_arr){
+                this.names.push(index)
+                let val = KEY_arr[index];
+                let sum = 0;
 
-            console.log(this.names)
+                for(let i in val){
+                    sum += val[i] - 0;
+                }
+                val.sum = sum;
+            }
+            TEMP_arr = Array.from(new Set(TEMP_arr));
+
+            // console.log(KEY_arr)
+
+            TEMP_arr.forEach((_val) => {
+                this.legend.push(_val)
+                var series = {
+                    type: 'bar',
+                    stack: '总量'
+                };
+                series.name = _val;
+                series.data = [];
+
+                for(let index in KEY_arr){
+                    let val = KEY_arr[index];
+                    if(val[_val]){
+                        let number = (val[_val] / val.sum) * 100;
+                        series.data.push(Math.round(number * 100) / 100)
+                    }
+                }
+
+                this.series.push(series)
+            })
+            
+            // console.log(this.names)
+            // console.log(this.series)
 
             getElement('echart6', $elem => {
-                var legendX = parseInt($elem.offsetWidth) - 90;
+                var lengthArr = [];
+                this.legend.forEach((val) => {
+                    lengthArr.push(val.length);
+                })
+                var maxLength = lengthArr.sort().reverse()[0];
+
+                this.legendW = 15 * maxLength;
+
+                var legendX = parseInt($elem.offsetWidth) - this.legendW;
 
                 this.renderEchart(legendX);
             })
@@ -40,12 +85,18 @@ export default {
         //渲染echart
         renderEchart(legendX){
             var option = {
-                tooltip : {
+                tooltip: {
                     trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c}"
+                    padding: [5,10,5,10],
+                    showDelay: 0,
+                    transitionDuration: 0.2,
+                    formatter: function (params) {
+                        // console.log(params)
+                        return `<span style="font-size: .12rem;">${params.seriesName}：${params.value}%</span>`
+                    }
                 },
                 legend: {
-                    width: 90,
+                    width: this.legendW,
                     x: legendX,
                     y: 'center',
                     orient: 'vertical',
@@ -56,30 +107,14 @@ export default {
                         color: '#fff',
                         fontSize:'.12rem'
                     },
-                    data:[
-                    {
-                        name: '金融业',
-                    },
-                    {
-                        name: '租赁和商务服务业',
-                    },
-                    {
-                        name: '建筑业',
-                    },
-                    {
-                        name: '制造业',
-                    },
-                    {
-                        name: '批发和零售业',
-                    }
-                    ]
+                    data:this.legend
                 },
                 color: ['#ceb800', '#22af6a', '#00befc', '#155ae4', '#7640e4'],
                 grid: {
-                    left: '3%',
-                    right: 90,
-                    bottom: '0',
-                    top: '5%',
+                    left: 10,
+                    right: this.legendW,
+                    bottom: -15,
+                    top: 10,
                     containLabel: true
                 },
                 xAxis:  {
@@ -104,38 +139,7 @@ export default {
                         show: false
                     }
                 },
-                series: [
-                    {
-                        name: '金融业',
-                        type: 'bar',
-                        stack: '总量',
-                        data: [139,373,170,48,700,420,319,450]
-                    },
-                    {
-                        name: '租赁和商务服务业',
-                        type: 'bar',
-                        stack: '总量',
-                        data: [2134,3481,2128,243,1556,1109,1464,1583]
-                    },
-                    {
-                        name: '建筑业',
-                        type: 'bar',
-                        stack: '总量',
-                        data: [2321,2581,2303,300,2309,1043,624,1558]
-                    },
-                    {
-                        name: '制造业',
-                        type: 'bar',
-                        stack: '总量',
-                        data: [3368,4895,2656,1157,7937,3951,3325,6802]
-                    },
-                    {
-                        name: '批发和零售业',
-                        type: 'bar',
-                        stack: '总量',
-                        data: [6884,13241,7954,1160,10242,6534,4444,8954]
-                    }
-                ]
+                series: this.series
             };
             
             getElement('echart6', $elem => {

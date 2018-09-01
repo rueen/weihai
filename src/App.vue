@@ -113,6 +113,23 @@ h1{
 .f14{
     font-size: .14rem;
 }
+.goBck{
+    position: absolute;
+    right: .46rem; top: .3rem;
+    font-size: .16rem;
+    color: #5b89b2;
+    line-height: .24rem;
+    cursor: pointer;
+}
+.goBck .iconfont{
+    border: 1px solid #5b89b2;
+    border-radius: 50%;
+    display: inline-block;
+    width: .24rem; height: .24rem;
+    font-size: .12rem;
+    text-align: center;
+    margin-right: .06rem;
+}
 /*.venntooltip {
     position: absolute;
     text-align: center;

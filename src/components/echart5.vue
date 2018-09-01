@@ -4,7 +4,7 @@
     <ul class="legend">
         <li class="table" v-for="(item, index) in result">
             <div class="iconBox table-cell">
-                <span class="icon blue" :class="{'blue': index == 0, 'yellow': index == 1, 'green': index == 2}"></span><span v-if="index == 0">A</span><span v-if="index == 1">B</span><span v-if="index == 2">C</span>
+                <span class="icon" :class="{'blue': index == 0, 'yellow': index == 1, 'green': index == 2}"></span><span v-if="index == 0">A</span><span v-if="index == 1">B</span><span v-if="index == 2">C</span>
             </div>
             <div class="table-cell">
                 <p>{{item['KEY_']}}</p>
@@ -18,7 +18,7 @@
 <script>
 import getElement from '../js/getElement.js'
 import getD3 from '../js/getD3.js'
-import { getData, ZDRQ_COLOR } from '@/js/getData'
+import { getData } from '@/js/getData'
 
 export default {
     data() {

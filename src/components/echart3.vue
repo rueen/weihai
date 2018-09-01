@@ -5,7 +5,7 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import { getData, ZDRQ_COLOR } from '@/js/getData'
+import { getData } from '@/js/getData'
 
 export default {
     data() {
