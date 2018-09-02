@@ -10,20 +10,26 @@
  * @param rows
  * @returns {Promise.<TResult>}
  */
-export const getData = async (dispatch, type, temp = '', page = 1, rows = 10) => {
-  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&rows=${ rows }&type=${ type }&temp=${ temp }`)
+export const getData = async (dispatch, type, temp = '', page = 1, size = 10) => {
+  return await fetch(`http://www.sdwhcredit.gov.cn/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&size=${ size }&type=${ type }&temp=${ temp }`, {
+  	mode: 'cors'
+  })
     .then((response) => response.json())
     .then((json) => json['result'])
 }
 
 export const search = async (qymc) => {
-  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=getQyList&page=1&size=10&qymc=${qymc}`)
+  return await fetch(`http://www.sdwhcredit.gov.cn/out/v2/data.json?dispatch=getQyList&page=1&size=10&qymc=${qymc}`, {
+  	mode: 'cors'
+  })
     .then((response) => response.json())
     .then((json) => json['result'])
 }
 
 export const getScreenEnterprise = async (id) => {
-  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=getScreenEnterprise&enterpriseId=${id}`)
+  return await fetch(`http://www.sdwhcredit.gov.cn/out/v2/data.json?dispatch=getScreenEnterprise&enterpriseId=${id}`, {
+  	mode: 'cors'
+  })
     .then((response) => response.json())
     .then((json) => json['result'])
 }
