@@ -45,9 +45,9 @@
                                 </div>
                                 <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
                                     <p>企业法人：{{item.FRDBXM}}</p>
-                                    <p>注册资本：356万人民币</p>
+                                    <p>注册资本：{{item.ZCZB}}万人民币</p>
                                     <p>成立日期：{{item.CLRQ}}</p>
-                                    <p>组织机构代码：{{item.ENTERPRISE_ID}}</p>
+                                    <p>组织机构代码：{{item.JGDM}}</p>
                                 </div>
                             </li>
                         </ul>
