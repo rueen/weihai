@@ -7,16 +7,13 @@
             <p class="text">{{list[curIndex].text}}</p>
         </div>
     </div>
-    <span class="wave" :class="{'left': !waveList[curIndex].right,'right': !waveList[curIndex].left,'wave-red': item.type == 2, 'cur': index == curIndex}" v-for="(item, index) in waveList" :style="{'top': (item.top + 'rem') || 'auto', 'left': item.left + 'rem', 'right': (item.right + 'rem') || 'auto'}"></span>
+    <span class="wave" :class="{'left': !item.right,'right': !item.left,'wave-red': item.type == 2, 'cur': index == curIndex}" v-for="(item, index) in waveList" :style="{'top': (item.top + 'rem') || 'auto', 'left': item.left + 'rem', 'right': (item.right + 'rem') || 'auto'}"></span>
 </div>
 </template>
 
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import whMapJson from '../json/whMapJson.json'
-
-echarts.registerMap('weihai', whMapJson);
 
 export default {
     data() {

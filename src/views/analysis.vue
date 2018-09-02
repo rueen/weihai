@@ -15,7 +15,7 @@
                     <div class="inner">
                         <form class="clearfix" @submit.prevent="search">
                             <div class="inputBox fl">
-                                <input type="text" class="input" placeholder="请输入企业、个人名称" v-model="keyword">
+                                <input type="text" class="input" placeholder="请输入企业、个人名称" id="keyword" v-model="keyword">
                                 <span class="iconfont icon-shanchu" @click="reSearch"></span>
                             </div>
                             <button type="submit" class="searchBtn fr">搜索</button>
@@ -39,14 +39,14 @@
                         <p class="loading" v-if="isLoading">加载中……</p>
                         <ul class="resultList">
                             <li class="resultItem" v-for="(item, index) in resultList">
-                                <div class="f16 resultTitle clearfix">
-                                    <span class="fl" @click="renderAtlas(item)">{{index + 1}}.{{item.QYMC}}</span>
-                                    <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}" @click="toggle(index)" v-if=""></span>
+                                <div class="f16 resultTitle clearfix" @click="toggle(item, index)">
+                                    <span class="fl">{{index + 1}}.{{item.QYMC}}</span>
+                                    <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}"></span>
                                 </div>
                                 <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
                                     <p>企业法人：{{item.FRDBXM}}</p>
                                     <p>注册资本：356万人民币</p>
-                                    <p>成立日期：1992-07-17</p>
+                                    <p>成立日期：{{item.CLRQ}}</p>
                                     <p>组织机构代码：{{item.ENTERPRISE_ID}}</p>
                                 </div>
                             </li>
@@ -112,14 +112,13 @@ export default {
 
     },
     methods:{
-        //渲染图谱
-        renderAtlas(data){
-            this.$refs.echart7.render(data.ENTERPRISE_ID)
-        },
         //重新搜索
         reSearch(){
             this.keyword = '';
             this.resultList = [];
+            this.openIndex = null;
+            document.getElementById('keyword').focus();
+            this.$refs.echart7.clear();
         },
         search(){
             this.isLoading = true;
@@ -131,11 +130,13 @@ export default {
                 this.resultList = result;
             })
         },
-        toggle(index){
+        toggle(data, index){
             if(this.openIndex == index){
                 this.openIndex = null;
             } else {
                 this.openIndex = index;
+                //渲染图片
+                this.$refs.echart7.render(data.ENTERPRISE_ID, data.QYMC);
             }
         }
     }

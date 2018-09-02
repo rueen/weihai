@@ -7,11 +7,11 @@
  * @param dispatch
  * @param type
  * @param page
- * @param rows
+ * @param size
  * @returns {Promise.<TResult>}
  */
-export const getData = async (dispatch, type, temp = '', page = 1, rows = 10) => {
-  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&rows=${ rows }&type=${ type }&temp=${ temp }`)
+export const getData = async (dispatch, type, temp = '', page = 1, size = 10) => {
+  return await fetch(`apis/whcredit_test/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&size=${ size }&type=${ type }&temp=${ temp }`)
     .then((response) => response.json())
     .then((json) => json['result'])
 }
