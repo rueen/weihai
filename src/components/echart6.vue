@@ -113,7 +113,7 @@ export default {
                 grid: {
                     left: 10,
                     right: this.legendW,
-                    bottom: -15,
+                    bottom: 0,
                     top: 10,
                     containLabel: true
                 },

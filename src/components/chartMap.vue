@@ -319,7 +319,9 @@ export default {
     padding: .15rem .15rem;
     border-radius: .1rem;
     background: rgba(0,0,0,.3);
-    box-shadow: 0 2px 2px rgba(0,0,0.1);
+    /*box-shadow: 0 2px 2px rgba(0,0,0.1);
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0.1);
+    -webkit-box-shadow: 0 2px 2px rgba(0,0,0.1);*/
 }
 .tips:after{
     content: '';

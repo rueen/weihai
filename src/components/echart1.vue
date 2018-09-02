@@ -50,7 +50,7 @@ export default {
                     showDelay: 0,
                     transitionDuration: 0.2,
                     formatter: function (params) {
-                        console.log(params)
+                        // console.log(params)
                         return `<p style="font-size: .12rem;">${params.name} : ${params.value}条（${params.percent}%）</p>`
                     }
                 },
@@ -87,6 +87,8 @@ export default {
 
             let barChart = echarts.init(document.getElementById("echart1"));
             barChart.setOption(option);
+
+            // window.onresize = barChart.resize;
         }
     }
 }

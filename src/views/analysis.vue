@@ -136,7 +136,7 @@ export default {
             } else {
                 this.openIndex = index;
                 //渲染图片
-                this.$refs.echart7.render(data.ENTERPRISE_ID, data.QYMC);
+                this.$refs.echart7.render(data.ENTERPRISE_ID, data);
             }
         }
     }

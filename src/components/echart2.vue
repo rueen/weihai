@@ -149,6 +149,8 @@ export default {
 
             let chart = echarts.init(document.getElementById("echart2-1"));
             chart.setOption(option);
+
+            // window.onresize = chart.resize;
         },
         renderEchart2() {
             var option = {
@@ -228,6 +230,8 @@ export default {
 
             let chart = echarts.init(document.getElementById("echart2-2"));
             chart.setOption(option);
+
+            // window.onresize = chart.resize;
         }
     }
 }

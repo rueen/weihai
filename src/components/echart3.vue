@@ -120,6 +120,8 @@ export default {
             getElement('echart3', $elem => {
                 let barChart = echarts.init($elem);
                 barChart.setOption(option);
+
+                // window.onresize = barChart.resize;
             })
         },
     }

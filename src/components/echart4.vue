@@ -75,10 +75,10 @@ export default {
                     }
                 },
                 grid : {
-                    left : '5%',
-                    right : '10%',
-                    bottom : '15%',
-                    top: '20%',
+                    left : 20,
+                    right : 35,
+                    bottom : 20,
+                    top: 35,
                     containLabel : true,
                     y2: 140
                 },
@@ -90,12 +90,13 @@ export default {
                         name: '法人信用记录查询',
                         textStyle: {
                             color: '#fff',
-                            fontSize:12
+                            fontSize: '.12rem'
                         }
                     },{
                         name: '自然人信用记录查询',
                         textStyle: {
-                            color: '#fff'
+                            color: '#fff',
+                            fontSize: '.12rem'
                         }
                     }]
                 },

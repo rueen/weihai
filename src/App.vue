@@ -10,8 +10,8 @@ export default {
     created() {
         this.renderRem();
         window.onresize = () => {
-            this.renderRem()
-            // window.location.reload()
+            // this.renderRem()
+            window.location.reload()
         }
     },
     methods:{
