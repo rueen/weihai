@@ -11,7 +11,9 @@
         <span class="relation">{{item.relation}}</span>
     </div>
     <div class="company">
-        <div class="inner">{{companyName}}</div>
+        <div class="inner">
+            <p class="company-clamp3">{{companyName}}</p>
+        </div>
     </div>
     <div class="tips" :class="{'hide': !isShowTips}" id="tips" :style="{'left': x + 'px', 'top': y + 'px'}">
         <p class="title"><span class="icon"></span>公司信息</p>
@@ -46,17 +48,17 @@ export default {
         }
     },
     created() {
-        this.render('F96B14961BE77ECA9E9A1D99059AC739', {
-            ENTERPRISE_ID: "B1C232117B20ABEEFC4CA045314BBEF5",
-            FRDBXM: "姜明",
-            GSZCH: "371022200017625",
-            JGDM: "MA3EMNC04",
-            QYMC: "威海威高置业有限公司",
-            RN: 1,
-            XYDM: "91371000MA3EMNC04W"
-        }, () => {
+        // this.render('F96B14961BE77ECA9E9A1D99059AC739', {
+        //     ENTERPRISE_ID: "B1C232117B20ABEEFC4CA045314BBEF5",
+        //     FRDBXM: "姜明",
+        //     GSZCH: "371022200017625",
+        //     JGDM: "MA3EMNC04",
+        //     QYMC: "威海威高置业有限公司威海威高置业有限公司",
+        //     RN: 1,
+        //     XYDM: "91371000MA3EMNC04W"
+        // }, () => {
 
-        })
+        // })
     },
     methods: {
         mouseover(e, item){
@@ -314,6 +316,17 @@ export default {
     border-radius: 50%;
     background: #e8803a;
     border: 1px solid #fff;
+}
+.company-clamp3{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    line-height: .3rem;
+    max-height: .9rem;
 }
 
 </style>

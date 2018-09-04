@@ -44,10 +44,10 @@
                                     <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}"></span>
                                 </div>
                                 <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
-                                    <p>企业法人：{{item.FRDBXM}}</p>
-                                    <p>注册资本：{{item.ZCZB}}万人民币</p>
-                                    <p>成立日期：{{item.CLRQ}}</p>
-                                    <p>组织机构代码：{{item.JGDM}}</p>
+                                    <p>企业法人：{{curDetail.FRDBXM}}</p>
+                                    <p>注册资本：{{curDetail.ZCZB}}万人民币</p>
+                                    <p>成立日期：{{curDetail.CLRQ}}</p>
+                                    <p>组织机构代码：{{curDetail.JGDM}}</p>
                                 </div>
                             </li>
                         </ul>
@@ -95,7 +95,7 @@
 
 <script>
 import echart7 from "../components/echart7.vue"
-import { search } from '@/js/getData'
+import { search, getDetail } from '@/js/getData'
 
 export default {
     data() {
@@ -104,7 +104,8 @@ export default {
             total: 0,
             resultList: [],
             openIndex: null,
-            isLoading: false
+            isLoading: false,
+            curDetail: {}
         }
     },
     components: { echart7 },
@@ -135,8 +136,15 @@ export default {
                 this.openIndex = null;
             } else {
                 this.openIndex = index;
-                //渲染图片
-                this.$refs.echart7.render(data.ENTERPRISE_ID, data);
+
+                this.curDetail = {};
+                getDetail(data.ENTERPRISE_ID).then((response) => {
+                    let result = response.rows[0];
+                    this.curDetail = result;
+                    //渲染图片
+                    this.$refs.echart7.render(data.ENTERPRISE_ID, result);
+                })
+                
             }
         }
     }

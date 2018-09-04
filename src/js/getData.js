@@ -24,6 +24,12 @@ export const search = async (qymc) => {
     .then((json) => json['result'])
 }
 
+export const getDetail = async (id) => {
+  return await fetch(`${url}/out/v2/data.json?dispatch=getQyList&enterpriseId=${id}`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
 export const getScreenEnterprise = async (id) => {
   return await fetch(`${url}/out/v2/data.json?dispatch=getScreenEnterprise&enterpriseId=${id}`)
     .then((response) => response.json())

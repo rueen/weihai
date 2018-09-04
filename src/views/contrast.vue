@@ -97,19 +97,32 @@ export default {
 
             this.numResult = result;
         })
-        getData('getScreen', '跨行业黑名单交叉比对').then((response) => {
+        getData('getScreen', '跨行业黑名单交叉比对', '经营异常名录%26法院失信被执行人').then((response) => {
             let result = response.rows;
 
             result.forEach((val) => {
-                if(val['KEY_'].indexOf('经营异常名录') > -1 && val['KEY_'].indexOf('法院失信被执行人') > -1){
-                    this.rollList1.push(val['VALUE_'])
-                } else if(val['KEY_'].indexOf('法院失信被执行人') > -1 && val['KEY_'].indexOf('税务D级纳税人') > -1){
-                    this.rollList2.push(val['VALUE_'])
-                } else if(val['KEY_'].indexOf('经营异常名录') > -1 && val['KEY_'].indexOf('税务D级纳税人') > -1){
-                    this.rollList3.push(val['VALUE_'])
-                } else if(val['KEY_'].indexOf('经营异常名录') > -1 && val['KEY_'].indexOf('法院失信被执行人') > -1 && val['KEY_'].indexOf('税务D级纳税人') > -1){
-                    this.rollList4.push(val['VALUE_'])
-                }
+                this.rollList1.push(val['VALUE_'])
+            })
+        })
+        getData('getScreen', '跨行业黑名单交叉比对', '法院失信被执行人%26税务D级纳税人').then((response) => {
+            let result = response.rows;
+
+            result.forEach((val) => {
+                this.rollList2.push(val['VALUE_'])
+            })
+        })
+        getData('getScreen', '跨行业黑名单交叉比对', '经营异常名录%26税务D级纳税人').then((response) => {
+            let result = response.rows;
+
+            result.forEach((val) => {
+                this.rollList3.push(val['VALUE_'])
+            })
+        })
+        getData('getScreen', '跨行业黑名单交叉比对', '经营异常名录%26法院失信被执行人%26税务D级纳税人').then((response) => {
+            let result = response.rows;
+
+            result.forEach((val) => {
+                this.rollList4.push(val['VALUE_'])
             })
         })
         

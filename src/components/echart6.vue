@@ -17,7 +17,7 @@ export default {
         }
     },
     created() {
-        getData('getScreen', '企业关联分析图').then((response) => {
+        getData('getScreen', '企业关联分析图', '', 1, 1000).then((response) => {
             var result = response.rows, TEMP_arr = [], KEY_arr = {};
 
             // console.log(result)
@@ -71,9 +71,9 @@ export default {
                 this.legend.forEach((val) => {
                     lengthArr.push(val.length);
                 })
-                var maxLength = lengthArr.sort().reverse()[0];
+                var maxLength = Math.max.apply(null, lengthArr);
 
-                this.legendW = 15 * maxLength;
+                this.legendW = 12 * maxLength;
 
                 var legendX = parseInt($elem.offsetWidth) - this.legendW;
 
@@ -107,7 +107,7 @@ export default {
                         color: '#fff',
                         fontSize:'.12rem'
                     },
-                    data:this.legend
+                    data:this.legend.splice(0,9)
                 },
                 color: ['#ceb800', '#22af6a', '#00befc', '#155ae4', '#7640e4'],
                 grid: {

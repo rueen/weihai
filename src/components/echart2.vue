@@ -78,7 +78,7 @@ export default {
                     showDelay: 0,
                     transitionDuration: 0.2,
                     formatter: function (params) {
-                        console.log(params)
+                        // console.log(params)
                         return `<p style="font-size: .12rem;">${params.name} : ${params.value}</p>`
                     }
                 },

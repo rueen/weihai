@@ -33,6 +33,11 @@ export default {
 
 <style>
 @import url('./fonts/iconfont.css');
+html, body{
+    display: block;
+    height: 100%;
+    /*overflow: hidden;*/
+}
 html,body,div,h1,h2,h3,p,img,input,form,button,ul,li{
     padding: 0; margin: 0;
     box-sizing:border-box;
