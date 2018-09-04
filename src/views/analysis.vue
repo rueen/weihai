@@ -1,4 +1,5 @@
 <template>
+<div class="bg">
 <div class="layout">
     <div class="topBg">
         <h1>威海市信用大数据分析平台</h1>
@@ -90,6 +91,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </template>
 
@@ -321,9 +323,15 @@ h1{
 .wrap{
     width: 100%; height: 9.8rem;
 }
-.layout{
-    width: 100%;
+.bg{
+    width: 100%; height: 100%;
     background: url(../assets/bg2.png) no-repeat center 0;
     background-size: 100% auto;
+}
+.layout{
+    width: 19.2rem;
+    margin: 0 auto;
+    /*background: url(../assets/bg2.png) no-repeat center 0;*/
+    /*background-size: 100% auto;*/
 }
 </style>

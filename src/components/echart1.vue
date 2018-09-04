@@ -4,7 +4,7 @@
 
 <script>
 import echarts from 'echarts'
-import { getData, ZDRQ_COLOR } from '@/js/getData'
+import { getData, ZDRQ_COLOR, delay } from '@/js/getData'
 
 export default {
     data() {
@@ -13,28 +13,35 @@ export default {
         }
     },
     mounted() {
-        // this.render()
-        getData('getScreen', '重点人群失信占比分析').then((response) => {
-            let result = response.rows.sort(function(a, b) {
-                return (~~b.VALUE_) - (~~a.VALUE_)
-            })
+        var timer = null;
+        var fun = () => {
+            this.result = [];
+            getData('getScreen', '重点人群失信占比分析').then((response) => {
+                let result = response.rows.sort(function(a, b) {
+                    return (~~b.VALUE_) - (~~a.VALUE_)
+                })
 
-            let _length = Math.min(5, result.length);
-            for (let i = 0; i < _length; i++) {
-                if (result[i].VALUE_ > 0) {
-                    let obj = {}
-                    obj.name = result[i]['KEY_']
-                    obj.value = result[i]['VALUE_']
-                    obj.itemStyle = {
-                        normal: {
-                            color: ZDRQ_COLOR[i]
+                let _length = Math.min(5, result.length);
+                for (let i = 0; i < _length; i++) {
+                    if (result[i].VALUE_ > 0) {
+                        let obj = {}
+                        obj.name = result[i]['KEY_']
+                        obj.value = result[i]['VALUE_']
+                        obj.itemStyle = {
+                            normal: {
+                                color: ZDRQ_COLOR[i]
+                            }
                         }
+                        this.result.push(obj)
                     }
-                    this.result.push(obj)
                 }
-            }
-            this.renderEchart()
-        })
+                this.renderEchart()
+            })
+        };
+
+        fun();
+        clearInterval(timer)
+        timer = setInterval(fun, delay)
     },
     methods: {
         //渲染echart
@@ -85,10 +92,10 @@ export default {
                 }]
             };
 
-            let barChart = echarts.init(document.getElementById("echart1"));
-            barChart.setOption(option);
+            window.echart1 = echarts.init(document.getElementById("echart1"));
+            window.echart1.setOption(option);
 
-            // window.onresize = barChart.resize;
+            // window.onresize = window.echart1.resize;
         }
     }
 }

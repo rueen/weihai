@@ -5,7 +5,7 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import { getData } from '@/js/getData'
+import { getData, delay } from '@/js/getData'
 
 export default {
     data() {
@@ -17,69 +17,80 @@ export default {
         }
     },
     created() {
-        getData('getScreen', '企业关联分析图', '', 1, 1000).then((response) => {
-            var result = response.rows, TEMP_arr = [], KEY_arr = {};
+        var timer = null;
+        var fun = () => {
+            this.legend = [];
+            this.names = [];
+            this.series = [];
+            this.legendW = 0;
+            getData('getScreen', '企业关联分析图', '', 1, 1000).then((response) => {
+                var result = response.rows, TEMP_arr = [], KEY_arr = {};
 
-            // console.log(result)
-            result.forEach((val) => {
-                TEMP_arr.push(val['TEMP_']);
-                if(!KEY_arr[val['KEY_']]){
-                    KEY_arr[val['KEY_']] = {};
-                }
-                KEY_arr[val['KEY_']][val['TEMP_']] = val['VALUE_']
-            })
-
-            for(let index in KEY_arr){
-                this.names.push(index)
-                let val = KEY_arr[index];
-                let sum = 0;
-
-                for(let i in val){
-                    sum += val[i] - 0;
-                }
-                val.sum = sum;
-            }
-            TEMP_arr = Array.from(new Set(TEMP_arr));
-
-            // console.log(KEY_arr)
-
-            TEMP_arr.forEach((_val) => {
-                this.legend.push(_val)
-                var series = {
-                    type: 'bar',
-                    stack: '总量'
-                };
-                series.name = _val;
-                series.data = [];
+                // console.log(result)
+                result.forEach((val) => {
+                    TEMP_arr.push(val['TEMP_']);
+                    if(!KEY_arr[val['KEY_']]){
+                        KEY_arr[val['KEY_']] = {};
+                    }
+                    KEY_arr[val['KEY_']][val['TEMP_']] = val['VALUE_']
+                })
 
                 for(let index in KEY_arr){
+                    this.names.push(index)
                     let val = KEY_arr[index];
-                    if(val[_val]){
-                        let number = (val[_val] / val.sum) * 100;
-                        series.data.push(Math.round(number * 100) / 100)
+                    let sum = 0;
+
+                    for(let i in val){
+                        sum += val[i] - 0;
                     }
+                    val.sum = sum;
                 }
+                TEMP_arr = Array.from(new Set(TEMP_arr));
 
-                this.series.push(series)
-            })
-            
-            // console.log(this.names)
-            // console.log(this.series)
+                // console.log(KEY_arr)
 
-            getElement('echart6', $elem => {
-                var lengthArr = [];
-                this.legend.forEach((val) => {
-                    lengthArr.push(val.length);
+                TEMP_arr.forEach((_val) => {
+                    this.legend.push(_val)
+                    var series = {
+                        type: 'bar',
+                        stack: '总量'
+                    };
+                    series.name = _val;
+                    series.data = [];
+
+                    for(let index in KEY_arr){
+                        let val = KEY_arr[index];
+                        if(val[_val]){
+                            let number = (val[_val] / val.sum) * 100;
+                            series.data.push(Math.round(number * 100) / 100)
+                        }
+                    }
+
+                    this.series.push(series)
                 })
-                var maxLength = Math.max.apply(null, lengthArr);
+                
+                // console.log(this.names)
+                // console.log(this.series)
 
-                this.legendW = 12 * maxLength;
+                getElement('echart6', $elem => {
+                    var lengthArr = [];
+                    this.legend.forEach((val) => {
+                        lengthArr.push(val.length);
+                    })
+                    var maxLength = Math.max.apply(null, lengthArr);
 
-                var legendX = parseInt($elem.offsetWidth) - this.legendW;
+                    this.legendW = 12 * maxLength;
 
-                this.renderEchart(legendX);
+                    var legendX = parseInt($elem.offsetWidth) - this.legendW;
+
+                    this.renderEchart(legendX);
+                })
             })
-        })
+        };
+
+        fun()
+        clearInterval(timer)
+        timer = setInterval(fun, delay)
     },
     methods:{
         //渲染echart
@@ -143,8 +154,8 @@ export default {
             };
             
             getElement('echart6', $elem => {
-                let barChart = echarts.init($elem);
-                barChart.setOption(option);
+                window.echart6 = echarts.init($elem);
+                window.echart6.setOption(option);
             })
         },
     }

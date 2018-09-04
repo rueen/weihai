@@ -10,6 +10,7 @@
  * @param size
  * @returns {Promise.<TResult>}
  */
+export const delay = 1000 * 60 * 10;
 
 var url = 'http://www.sdwhcredit.gov.cn';
 export const getData = async (dispatch, type, temp = '', page = 1, size = 10) => {

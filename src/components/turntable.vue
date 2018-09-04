@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getData, ZDRQ_COLOR } from '@/js/getData'
+import { getData, delay } from '@/js/getData'
 
 export default {
     data() {
@@ -31,24 +31,31 @@ export default {
         }
     },
     created() {
-        getData('getScreen', '平台概况').then((response) => {
-            response.rows.forEach((val) => {
-                switch(val['KEY_']){
-                    case '法人归集数量':
-                        this.num1 = val['VALUE_']
-                        break;
-                    case '自然人归集数量':
-                        this.num2 = val['VALUE_']
-                        break;
-                    case '行政许可数量':
-                        this.num3 = val['VALUE_']
-                        break;
-                    case '行政处罚数量':
-                        this.num4 = val['VALUE_']
-                        break;
-                }
+        var timer = null;
+        var fun = () => {
+            getData('getScreen', '平台概况').then((response) => {
+                response.rows.forEach((val) => {
+                    switch(val['KEY_']){
+                        case '法人归集数量':
+                            this.num1 = val['VALUE_']
+                            break;
+                        case '自然人归集数量':
+                            this.num2 = val['VALUE_']
+                            break;
+                        case '行政许可数量':
+                            this.num3 = val['VALUE_']
+                            break;
+                        case '行政处罚数量':
+                            this.num4 = val['VALUE_']
+                            break;
+                    }
+                })
             })
-        })
+        };
+
+        fun()
+        clearInterval(timer)
+        timer = setInterval(fun, delay)
     },
     methods:{
         
