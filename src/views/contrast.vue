@@ -135,7 +135,7 @@ export default {
                 this.rollList4.push(val['VALUE_'])
             })
         })
-        
+
     },
     methods:{
         venn(){

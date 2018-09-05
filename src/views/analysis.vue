@@ -144,7 +144,7 @@ export default {
                     this.$refs.echart7.isFr = false;
                     this.$refs.echart7.render(data.ENTERPRISE_ID, result);
                 })
-                
+
         }
     }
 }
