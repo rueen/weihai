@@ -37,6 +37,12 @@ export const getScreenEnterprise = async (id) => {
     .then((json) => json['result'])
 }
 
+export const getScreenEnterpriseByFr = async (id, frmc) => {
+  return await fetch(`${url}/out/v2/data.json?dispatch=getScreenEnterpriseByFr&enterpriseId=${id}&frmc=${frmc}`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
 /**
  * 图标1的颜色
  * @type {Array}
