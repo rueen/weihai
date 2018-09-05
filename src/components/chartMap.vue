@@ -1,20 +1,19 @@
 <template>
 <!-- <div class="map" id="map"></div> -->
 <div class="map">
-    <div class="tips" :style="{'top': (waveList[curIndex].top + 'rem') || 'auto', 'left': waveList[curIndex].left + .1 + 'rem', 'right': (waveList[curIndex].right + .1 + 'rem') || 'auto'}">
-        <p class="title">信用记录查询</p>
-        <p class="text">宋**，在服务大厅查询个人信用记录</p>
+    <div class="tips" :class="{'left': !waveList[curIndex].right,'right': !waveList[curIndex].left}" :style="{'top': (waveList[curIndex].top + 'rem') || 'auto', 'left': waveList[curIndex].left + 'rem', 'right': (waveList[curIndex].right + 'rem') || 'auto'}">
+        <div class="inner">
+            <p class="title">{{list[curIndex].title}}</p>
+            <p class="text">{{list[curIndex].text}}</p>
+        </div>
     </div>
-    <span class="wave" :class="{'wave-red': item.type == 2, 'cur': index == curIndex}" v-for="(item, index) in waveList" :style="{'top': (item.top + 'rem') || 'auto', 'left': item.left + 'rem', 'right': (item.right + 'rem') || 'auto'}"></span>
+    <span class="wave" :class="{'left': !item.right,'right': !item.left,'wave-red': item.type == 2, 'cur': index == curIndex}" v-for="(item, index) in waveList" :style="{'top': (item.top + 'rem') || 'auto', 'left': item.left + 'rem', 'right': (item.right + 'rem') || 'auto'}"></span>
 </div>
 </template>
 
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import whMapJson from '../json/whMapJson.json'
-
-echarts.registerMap('weihai', whMapJson);
 
 export default {
     data() {
@@ -23,13 +22,25 @@ export default {
             left: 0,
             curIndex: 0,
             waveList: [
-                {top: .5, left: 4.1, type: 1},
-                {top: .8, left: 4.3, type: 2},
-                {top: 3, left: 5, type: 1},
-                {top: 1.35, left: 4.73, type: 2},
-                {top: 2.2, left: 3.3, type: 1},
-                {top: 1.55, right: .9, type: 2},
-                {top: 2.25, right: 1, type: 1}
+                {top: .6, left: 4.3, type: 2},
+                {top: 1.78, left: 4.2, type: 2},
+                {top: 3.3, left: .62, type: 2},
+                {top: 3.67, left: 1.83, type: 1},
+                {top: 2.56, left: 3.6, type: 2},
+                {top: 2.38, right: .9, type: 2},
+                {top: 3.65, left: 3.48, type: 1},
+                {top: 3, left: 4.3, type: 2},
+                {top: 3.7, right: 1.3, type: 1},
+                {top: 3.2, right: 1.45, type: 2},
+                {top: 2.88, left: 3.38, type: 1},
+                {top: 3.15, left: 4, type: 1},
+                {top: 3.6, left: 4, type: 2},
+                {top: 3.52, left: 2.87, type: 1},
+                {top: 1.6, right: 1.8, type: 2},
+                {top: 1.9, right: 1.1, type: 1},
+                {top: 1.1, left: 3.96, type: 1},
+                {top: 4.1, left: 1.52, type: 2},
+                {top: 2.45, left: 4.4, type: 1},
             ],
             list: [
                 {
@@ -64,7 +75,7 @@ export default {
 
         clearInterval(timer);
         timer = setInterval(() => {
-            this.curIndex = this.getIndex(this.waveList.length - 1);
+            this.curIndex = this.getIndex(this.list.length - 1);
         }, 3000)
         // this.renderEchart();
         // this.render();
@@ -293,26 +304,46 @@ export default {
 <style scoped>
 .tips{
     position: absolute;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 3;
+    padding-left: 10px;
+    min-width: 2rem;
+    max-width: 3rem;
+}
+.tips.right{
+    padding-left: 0;
+    padding-right: 10px;
+}
+.tips .inner{
     padding: .15rem .15rem;
     border-radius: .1rem;
     background: rgba(0,0,0,.3);
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    box-shadow: 0 2px 2px 0 rgba(0,0,0.1);
-    z-index: 3;
+    /*box-shadow: 0 2px 2px rgba(0,0,0.1);
+    -moz-box-shadow: 0 2px 2px rgba(0,0,0.1);
+    -webkit-box-shadow: 0 2px 2px rgba(0,0,0.1);*/
 }
-/*.tips:after{
+.tips:after{
     content: '';
     position: absolute;
-    display: inline-block;
+    display: block;
     width: 0; height: 0;
-    border-right: .1rem solid rgba(0,0,0.2);
+    top: 50%;
+    margin-top: -10px;
+    opacity: .3;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+.tips.left:after{
+    border-right: 10px solid #000;
     border-left: none;
-    border-top: transparent;
-    border-bottom: transparent;
-    left: -.1rem; top: 50%;
-    margin-top: -.05rem;
-}*/
+    left: 0;
+}
+.tips.right:after{
+    border-left: 10px solid #000;
+    border-right: none;
+    right: 0;
+}
 .tips .title{
     font-size: .16rem;
     line-height: .3rem;
@@ -327,10 +358,16 @@ export default {
     position: absolute;
     background: url(../assets/wave.gif) no-repeat 0 0;
     background-size: 100% auto;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
     z-index: 1;
     opacity: .8;
+}
+.wave.left{
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.wave.right{
+    -webkit-transform: translateX(50%) translateY(-50%);
+    transform: translateX(50%) translateY(-50%);
 }
 .wave.cur{
     width: 22px; height: 22px;

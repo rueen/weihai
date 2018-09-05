@@ -18,7 +18,7 @@
 <script>
 import getElement from '../js/getElement.js'
 import getD3 from '../js/getD3.js'
-import { getData } from '@/js/getData'
+import { getData, delay } from '@/js/getData'
 
 export default {
     data() {
@@ -27,14 +27,21 @@ export default {
         }
     },
     created() {
-        getData('getScreen', '跨行业黑名单交叉比对总数').then((response) => {
-            let result = response.rows.sort(function(a, b) {
-                return (~~b.VALUE_) - (~~a.VALUE_)
-            })
+        var timer = null;
+        var fun = () => {
+            getData('getScreen', '跨行业黑名单交叉比对总数').then((response) => {
+                let result = response.rows.sort(function(a, b) {
+                    return (~~b.VALUE_) - (~~a.VALUE_)
+                })
 
-            this.result = result;
-            this.venn()
-        })
+                this.result = result;
+                this.venn()
+            })
+        };
+
+        fun()
+        clearInterval(timer)
+        timer = setInterval(fun, delay)
     },
     methods:{
         venn(){

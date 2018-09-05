@@ -8,14 +8,27 @@
 export default {
     name: 'App',
     created() {
-        this.renderRem();
+        this.resize();
         window.onresize = () => {
-            this.renderRem()
-            // window.location.reload()
+            this.resize();
+            window.echart1.resize();
+            window.echart2_1.resize();
+            window.echart2_2.resize();
+            window.echart3.resize();
+            window.echart4.resize();
+            window.echart6.resize();
         }
     },
     methods:{
-        renderRem(){
+        resize(){
+            var height = document.documentElement.clientHeight;
+            var h = 1920;
+            var s = height / 1080;
+            var w = 1920 * s;
+
+            this.renderRem(w)
+        },
+        renderRem(width){
             var value = document.documentElement.clientWidth
             var ua = navigator.userAgent
 
@@ -23,7 +36,7 @@ export default {
                 value = (3 * value) / 2.6 // 小米虽然 dpr 是3 但表现的依然是 2.6
             }
 
-            var  deviceWidth = Math.min(1920, value)
+            var  deviceWidth = Math.min(width, value)
 
             document.documentElement.style.fontSize = deviceWidth / 19.2 + 'px';
         }
@@ -33,6 +46,11 @@ export default {
 
 <style>
 @import url('./fonts/iconfont.css');
+html, body{
+    display: block;
+    height: 100%;
+    overflow: hidden;
+}
 html,body,div,h1,h2,h3,p,img,input,form,button,ul,li{
     padding: 0; margin: 0;
     box-sizing:border-box;

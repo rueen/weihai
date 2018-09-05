@@ -8,7 +8,7 @@
 <script>
 import echarts from 'echarts'
 import getElement from '../js/getElement.js'
-import { getData } from '@/js/getData'
+import { getData, delay } from '@/js/getData'
 
 export default {
     data() {
@@ -24,32 +24,46 @@ export default {
         }
     },
     mounted() {
-        // this.render()
-        getData('getScreen', '失信信息统计', '行政处罚行业分布TOP5').then((response) => {
-            let result = response.rows.sort(function(a, b) {
-                return (~~a.VALUE_) - (~~b.VALUE_)
+        var timer = null;
+        var fun = () => {
+            this.result1 = {
+                names: [],
+                values: []
+            };
+            this.result2 = {
+                names: [],
+                values: []
+            };
+            getData('getScreen', '失信信息统计', '行政处罚行业分布TOP5').then((response) => {
+                let result = response.rows.sort(function(a, b) {
+                    return (~~a.VALUE_) - (~~b.VALUE_)
+                })
+
+                let _length = Math.min(5, result.length);
+                for (let i = 0; i < _length; i++) {
+                    this.result1.names.push(result[i]['KEY_'])
+                    this.result1.values.push(result[i]['VALUE_'])
+                }
+                this.renderEchart1();
             })
 
-            let _length = Math.min(5, result.length);
-            for (let i = 0; i < _length; i++) {
-                this.result1.names.push(result[i]['KEY_'])
-                this.result1.values.push(result[i]['VALUE_'])
-            }
-            this.renderEchart1();
-        })
+            getData('getScreen', '失信信息统计', '法院老赖行业分布TOP5').then((response) => {
+                let result = response.rows.sort(function(a, b) {
+                    return (~~a.VALUE_) - (~~b.VALUE_)
+                })
 
-        getData('getScreen', '失信信息统计', '法院老赖行业分布TOP5').then((response) => {
-            let result = response.rows.sort(function(a, b) {
-                return (~~a.VALUE_) - (~~b.VALUE_)
+                let _length = Math.min(5, result.length);
+                for (let i = 0; i < _length; i++) {
+                    this.result2.names.push(result[i]['KEY_'])
+                    this.result2.values.push(result[i]['VALUE_'])
+                }
+                this.renderEchart2();
             })
+        };
 
-            let _length = Math.min(5, result.length);
-            for (let i = 0; i < _length; i++) {
-                this.result2.names.push(result[i]['KEY_'])
-                this.result2.values.push(result[i]['VALUE_'])
-            }
-            this.renderEchart2();
-        })
+        fun();
+        clearInterval(timer)
+        timer = setInterval(fun, delay)
     },
     methods: {
         //渲染echart
@@ -78,7 +92,7 @@ export default {
                     showDelay: 0,
                     transitionDuration: 0.2,
                     formatter: function (params) {
-                        console.log(params)
+                        // console.log(params)
                         return `<p style="font-size: .12rem;">${params.name} : ${params.value}</p>`
                     }
                 },
@@ -147,8 +161,8 @@ export default {
                 }]
             };
 
-            let chart = echarts.init(document.getElementById("echart2-1"));
-            chart.setOption(option);
+            window.echart2_1 = echarts.init(document.getElementById("echart2-1"));
+            window.echart2_1.setOption(option);
         },
         renderEchart2() {
             var option = {
@@ -161,7 +175,7 @@ export default {
                     icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                     textStyle: { color: '#ccc' },
                     data: [{
-                        name: '行政处罚行业分布TOP5',
+                        name: '法院老赖行业分布TOP5',
                         textStyle: {
                             color: '#fff',
                             fontSize: '.14rem'
@@ -175,7 +189,7 @@ export default {
                     showDelay: 0,
                     transitionDuration: 0.2,
                     formatter: function (params) {
-                        console.log(params)
+                        // console.log(params)
                         return `<p style="font-size: .12rem;">${params.name} : ${params.value}</p>`
                     }
                 },
@@ -207,7 +221,7 @@ export default {
                     }
                 },
                 series: [{
-                    name: '行政处罚行业分布TOP5',
+                    name: '法院老赖行业分布TOP5',
                     type: 'bar',
                     data: this.result2.values,
                     barWidth: 14, //柱图宽度
@@ -226,8 +240,8 @@ export default {
                 }]
             };
 
-            let chart = echarts.init(document.getElementById("echart2-2"));
-            chart.setOption(option);
+            window.echart2_2 = echarts.init(document.getElementById("echart2-2"));
+            window.echart2_2.setOption(option);
         }
     }
 }

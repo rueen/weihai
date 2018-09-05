@@ -1,4 +1,5 @@
 <template>
+<div class="bg">
 <div class="layout">
     <div class="topBg">
         <h1>威海市信用大数据分析平台</h1>
@@ -15,7 +16,7 @@
                     <div class="inner">
                         <form class="clearfix" @submit.prevent="search">
                             <div class="inputBox fl">
-                                <input type="text" class="input" placeholder="请输入企业、个人名称" v-model="keyword">
+                                <input type="text" class="input" placeholder="请输入企业、个人名称" id="keyword" v-model="keyword">
                                 <span class="iconfont icon-shanchu" @click="reSearch"></span>
                             </div>
                             <button type="submit" class="searchBtn fr">搜索</button>
@@ -39,15 +40,15 @@
                         <p class="loading" v-if="isLoading">加载中……</p>
                         <ul class="resultList">
                             <li class="resultItem" v-for="(item, index) in resultList">
-                                <div class="f16 resultTitle clearfix">
-                                    <span class="fl" @click="renderAtlas(item)">{{index + 1}}.{{item.QYMC}}</span>
-                                    <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}" @click="toggle(index)" v-if=""></span>
+                                <div class="f16 resultTitle clearfix" @click="toggle(item, index)">
+                                    <span class="fl">{{index + 1}}.{{item.QYMC}}</span>
+                                    <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}"></span>
                                 </div>
                                 <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
-                                    <p>企业法人：{{item.FRDBXM}}</p>
-                                    <p>注册资本：356万人民币</p>
-                                    <p>成立日期：1992-07-17</p>
-                                    <p>组织机构代码：{{item.ENTERPRISE_ID}}</p>
+                                    <p>企业法人：{{curDetail.FRDBXM}}</p>
+                                    <p>注册资本：{{curDetail.ZCZB}}万人民币</p>
+                                    <p>成立日期：{{curDetail.CLRQ}}</p>
+                                    <p>组织机构代码：{{curDetail.JGDM}}</p>
                                 </div>
                             </li>
                         </ul>
@@ -91,11 +92,12 @@
         </div>
     </div>
 </div>
+</div>
 </template>
 
 <script>
 import echart7 from "../components/echart7.vue"
-import { search } from '@/js/getData'
+import { search, getDetail } from '@/js/getData'
 
 export default {
     data() {
@@ -104,7 +106,8 @@ export default {
             total: 0,
             resultList: [],
             openIndex: null,
-            isLoading: false
+            isLoading: false,
+            curDetail: {}
         }
     },
     components: { echart7 },
@@ -112,14 +115,13 @@ export default {
 
     },
     methods:{
-        //渲染图谱
-        renderAtlas(data){
-            this.$refs.echart7.render(data.ENTERPRISE_ID)
-        },
         //重新搜索
         reSearch(){
             this.keyword = '';
             this.resultList = [];
+            this.openIndex = null;
+            document.getElementById('keyword').focus();
+            this.$refs.echart7.clear();
         },
         search(){
             this.isLoading = true;
@@ -131,12 +133,18 @@ export default {
                 this.resultList = result;
             })
         },
-        toggle(index){
-            if(this.openIndex == index){
-                this.openIndex = null;
-            } else {
+        toggle(data, index){
                 this.openIndex = index;
-            }
+
+                this.curDetail = {};
+                getDetail(data.ENTERPRISE_ID).then((response) => {
+                    let result = response.rows[0];
+                    this.curDetail = result;
+                    //渲染图片
+                    this.$refs.echart7.isFr = false;
+                    this.$refs.echart7.render(data.ENTERPRISE_ID, result);
+                })
+                
         }
     }
 }
@@ -312,9 +320,15 @@ h1{
 .wrap{
     width: 100%; height: 9.8rem;
 }
-.layout{
-    width: 100%;
+.bg{
+    width: 100%; height: 100%;
     background: url(../assets/bg2.png) no-repeat center 0;
     background-size: 100% auto;
+}
+.layout{
+    width: 19.2rem;
+    margin: 0 auto;
+    /*background: url(../assets/bg2.png) no-repeat center 0;*/
+    /*background-size: 100% auto;*/
 }
 </style>

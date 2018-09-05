@@ -7,29 +7,38 @@
  * @param dispatch
  * @param type
  * @param page
- * @param rows
+ * @param size
  * @returns {Promise.<TResult>}
  */
+export const delay = 1000 * 60 * 10;
+
+var url = 'http://www.sdwhcredit.gov.cn';
 export const getData = async (dispatch, type, temp = '', page = 1, size = 10) => {
-  return await fetch(`http://www.sdwhcredit.gov.cn/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&size=${ size }&type=${ type }&temp=${ temp }`, {
-  	mode: 'cors'
-  })
+  return await fetch(`${url}/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&size=${ size }&type=${ type }&temp=${ temp }`)
     .then((response) => response.json())
     .then((json) => json['result'])
 }
 
 export const search = async (qymc) => {
-  return await fetch(`http://www.sdwhcredit.gov.cn/out/v2/data.json?dispatch=getQyList&page=1&size=10&qymc=${qymc}`, {
-  	mode: 'cors'
-  })
+  return await fetch(`${url}/out/v2/data.json?dispatch=getQyList&page=1&size=10&qymc=${qymc}`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
+export const getDetail = async (id) => {
+  return await fetch(`${url}/out/v2/data.json?dispatch=getQyList&enterpriseId=${id}`)
     .then((response) => response.json())
     .then((json) => json['result'])
 }
 
 export const getScreenEnterprise = async (id) => {
-  return await fetch(`http://www.sdwhcredit.gov.cn/out/v2/data.json?dispatch=getScreenEnterprise&enterpriseId=${id}`, {
-  	mode: 'cors'
-  })
+  return await fetch(`${url}/out/v2/data.json?dispatch=getScreenEnterprise&enterpriseId=${id}`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
+export const getScreenEnterpriseByFr = async (id, frmc) => {
+  return await fetch(`${url}/out/v2/data.json?dispatch=getScreenEnterpriseByFr&enterpriseId=${id}&frmc=${frmc}`)
     .then((response) => response.json())
     .then((json) => json['result'])
 }

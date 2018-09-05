@@ -1,4 +1,5 @@
 <template>
+<div class="bg">
 <div class="layout">
     <div class="topBg">
         <h1>威海市信用大数据分析平台</h1>
@@ -54,6 +55,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </template>
 
@@ -138,10 +140,17 @@ export default {
 .echartBox3 .tab .item.cur{
     background: #1680c7;
 }
-.layout{
-    width: 100%;
+.bg{
+    width: 100%; height: 100%;
     background: url(../assets/bg1.jpg) no-repeat center bottom;
     background-size: 100% auto;
+}
+.layout{
+    /*width: 100%;*/
+    width: 19.2rem;
+    margin: 0 auto;
+    /*background: url(../assets/bg1_2.png) no-repeat center bottom;*/
+    /*background-size: 100% auto;*/
     padding-bottom: .37rem;
 }
 .middle{

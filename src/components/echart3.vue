@@ -118,8 +118,10 @@ export default {
             };
             
             getElement('echart3', $elem => {
-                let barChart = echarts.init($elem);
-                barChart.setOption(option);
+                window.echart3 = echarts.init($elem);
+                window.echart3.setOption(option);
+
+                // window.onresize = barChart.resize;
             })
         },
     }
