@@ -1,97 +1,95 @@
 <template>
-<div class="bg">
 <div class="layout">
     <div class="topBg">
-        <h1>威海市信用大数据分析平台</h1>
-        <div class="goBck">
-            <router-link class="more link" tag="span" to="/">
-                <span class="iconfont icon-siglypharrowbackward"></span>
-                返回
-            </router-link>
-        </div>
-        <div class="wrap">
-            <div class="left fl">
-                <div class="searchBox">
-                    <div class="top"></div>
-                    <div class="inner">
-                        <form class="clearfix" @submit.prevent="search">
-                            <div class="inputBox fl">
-                                <input type="text" class="input" placeholder="请输入企业、个人名称" id="keyword" v-model="keyword">
-                                <span class="iconfont icon-shanchu" @click="reSearch"></span>
-                            </div>
-                            <button type="submit" class="searchBtn fr">搜索</button>
-                        </form>
-                        <!-- <div class="screen screen1 clearfix">
-                            <div class="screenLeft fl">投资方式:</div>
-                            <div class="fr screenRight">
-                                <span class="item">全部</span>
-                                <span class="item cur">直接投资</span>
-                                <span class="item">股东投资</span>
-                                <span class="item">董高监法投资</span>
-                            </div>
+        <h1 class="table"><div class="table-cell">威海市信用大数据分析平台</div></h1>
+    </div>
+    <div class="goBck">
+        <router-link class="more link" tag="span" to="/">
+            <span class="iconfont icon-siglypharrowbackward"></span>
+            返回
+        </router-link>
+    </div>
+    <div class="wrap">
+        <div class="left">
+            <div class="searchBox searchBox1">
+                <div class="top"></div>
+                <div class="inner">
+                    <form class="clearfix" @submit.prevent="search">
+                        <div class="inputBox fl">
+                            <input type="text" class="input" placeholder="请输入企业、个人名称" id="keyword" v-model="keyword">
+                            <span class="iconfont icon-shanchu" @click="reSearch"></span>
                         </div>
-                        <div class="screen screen2 clearfix">
-                            <div class="screenLeft fl">状态:</div>
-                            <div class="fr screenRight">
-                                <span class="item cur">正常</span>
-                                <span class="item">注销</span>
+                        <button type="submit" class="searchBtn fr">搜索</button>
+                    </form>
+                    <!-- <div class="screen screen1 clearfix">
+                        <div class="screenLeft fl">投资方式:</div>
+                        <div class="fr screenRight">
+                            <span class="item">全部</span>
+                            <span class="item cur">直接投资</span>
+                            <span class="item">股东投资</span>
+                            <span class="item">董高监法投资</span>
+                        </div>
+                    </div>
+                    <div class="screen screen2 clearfix">
+                        <div class="screenLeft fl">状态:</div>
+                        <div class="fr screenRight">
+                            <span class="item cur">正常</span>
+                            <span class="item">注销</span>
+                        </div>
+                    </div> -->
+                    <p class="loading" v-if="isLoading">加载中……</p>
+                    <ul class="resultList">
+                        <li class="resultItem" v-for="(item, index) in resultList">
+                            <div class="f16 resultTitle clearfix" @click="toggle(item, index)">
+                                <span class="fl">{{index + 1}}.{{item.QYMC}}</span>
+                                <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}"></span>
                             </div>
-                        </div> -->
-                        <p class="loading" v-if="isLoading">加载中……</p>
-                        <ul class="resultList">
-                            <li class="resultItem" v-for="(item, index) in resultList">
-                                <div class="f16 resultTitle clearfix" @click="toggle(item, index)">
-                                    <span class="fl">{{index + 1}}.{{item.QYMC}}</span>
-                                    <span class="iconfont fl icon-arrow-b-line" :class="{'icon-arrow-t-line': openIndex == index}"></span>
-                                </div>
-                                <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
-                                    <p>企业法人：{{curDetail.FRDBXM}}</p>
-                                    <p>注册资本：{{curDetail.ZCZB}}万人民币</p>
-                                    <p>成立日期：{{curDetail.CLRQ}}</p>
-                                    <p>组织机构代码：{{curDetail.JGDM}}</p>
-                                </div>
-                            </li>
-                        </ul>
-                        <p class="tips" v-if="resultList.length > 0">共找到{{total}}家匹配的企业，重新搜索请点击<span class="goBack" @click="reSearch">返回</span>或直接在搜索框中输入企业、个人名称</p>
-                    </div>
-                    <div class="bottom"></div>
+                            <div class="details f16" v-if="(openIndex == index) || (resultList.length == 1)">
+                                <p>企业法人：{{curDetail.FRDBXM}}</p>
+                                <p>注册资本：{{curDetail.ZCZB}}万人民币</p>
+                                <p>成立日期：{{curDetail.CLRQ}}</p>
+                                <p>组织机构代码：{{curDetail.JGDM}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <p class="tips" v-if="resultList.length > 0">共找到{{total}}家匹配的企业，重新搜索请点击<span class="goBack" @click="reSearch">返回</span>或直接在搜索框中输入企业、个人名称</p>
                 </div>
-                <div class="searchBox searchBox2">
-                    <div class="top"></div>
-                    <div class="inner">
-                        <p class="f16">信用等级：</p>
-                        <ul class="legend">
-                            <li class="item">
-                                <span class="icon color1 fl"></span>AAA级
-                            </li>
-                            <li class="item">
-                                <span class="icon color2 fl"></span>AA级
-                            </li>
-                            <li class="item">
-                                <span class="icon color3 fl"></span>A级
-                            </li>
-                            <li class="item">
-                                <span class="icon color4 fl"></span>B级
-                            </li>
-                            <li class="item">
-                                <span class="icon color5 fl"></span>C级
-                            </li>
-                            <li class="item">
-                                <span class="icon color6 fl"></span>D级
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bottom"></div>
-                </div>
+                <div class="bottom"></div>
             </div>
-            <div class="right fr">
-                <div class="echartBox">
-                    <echart7 ref="echart7"></echart7>
+            <div class="searchBox searchBox2">
+                <div class="top"></div>
+                <div class="inner">
+                    <p class="f16">信用等级：</p>
+                    <ul class="legend">
+                        <li class="item">
+                            <span class="icon color1 fl"></span>AAA级
+                        </li>
+                        <li class="item">
+                            <span class="icon color2 fl"></span>AA级
+                        </li>
+                        <li class="item">
+                            <span class="icon color3 fl"></span>A级
+                        </li>
+                        <li class="item">
+                            <span class="icon color4 fl"></span>B级
+                        </li>
+                        <li class="item">
+                            <span class="icon color5 fl"></span>C级
+                        </li>
+                        <li class="item">
+                            <span class="icon color6 fl"></span>D级
+                        </li>
+                    </ul>
                 </div>
+                <div class="bottom"></div>
+            </div>
+        </div>
+        <div class="right fr">
+            <div class="echartBox">
+                <echart7 ref="echart7"></echart7>
             </div>
         </div>
     </div>
-</div>
 </div>
 </template>
 
@@ -112,9 +110,32 @@ export default {
     },
     components: { echart7 },
     created() {
-
+        this.resize();
+        window.onresize = () => {
+            this.resize();
+        }
     },
     methods:{
+        resize(){
+            var height = document.documentElement.clientHeight;
+            var h = 1920;
+            var s = height / 1080;
+            var w = 1920 * s;
+
+            this.renderRem(w)
+        },
+        renderRem(width){
+            var value = document.documentElement.clientWidth
+            var ua = navigator.userAgent
+
+            if (ua.match(/MI 5/) && ua.match(/QQBrowser/) && ! ua.match(/MicroMessenger/)) {
+                value = (3 * value) / 2.6 // 小米虽然 dpr 是3 但表现的依然是 2.6
+            }
+
+            var  deviceWidth = Math.min(width, value)
+
+            document.documentElement.style.fontSize = deviceWidth / 19.2 + 'px';
+        },
         //重新搜索
         reSearch(){
             this.keyword = '';
@@ -208,9 +229,7 @@ h1{
 .echartBox{
     width: 8.5rem; height: 8.5rem;
 }
-.searchBox2{
-    margin-top: .3rem;
-}
+
 .resultTitle{
     height: .3rem;
     line-height: .3rem;
@@ -265,7 +284,7 @@ h1{
 }
 .inputBox{
     position: relative;
-    width: 3.5rem; height: .5rem;
+    width: 76%; height: .5rem;
     border: .01rem solid #fff;
     border-radius: .04rem;
 }
@@ -315,13 +334,26 @@ h1{
 .searchBox{
     background: url(../assets/searchBox-m.png) repeat-y 0 0;
     background-size: 100% auto;
-    width: 5.22rem;
+    
+}
+/*.searchBox1{
+    top: 13.33%;
+}*/
+.searchBox2{
+    margin-top: .3rem;
 }
 .left{
-    padding: .42rem 0 0 1.5rem;
+    width: 27.18%;
+    position: absolute;
+    left: 7.8125%;
+    top: 13.33%;
 }
 .wrap{
-    width: 100%; height: 9.8rem;
+    overflow: hidden;
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: 1;
+    left: 0; top: 0;
 }
 .bg{
     width: 100%; height: 100%;
@@ -329,9 +361,10 @@ h1{
     background-size: 100% auto;
 }
 .layout{
-    width: 19.2rem;
-    margin: 0 auto;
-    /*background: url(../assets/bg2.png) no-repeat center 0;*/
-    /*background-size: 100% auto;*/
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: 0;
+    background: url(../assets/bg2.png) no-repeat center 0;
+    background-size: 100% auto;
 }
 </style>

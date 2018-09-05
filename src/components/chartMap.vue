@@ -378,9 +378,13 @@ export default {
     background-size: 100% auto;
 }
 .map{
-    width: 100%; height: 6rem;
+    width: 7rem; height: 6rem;
+    /*width: auto; height: auto;*/
+    /*width: 36.5%; height: 58%;*/
+    position: absolute;
+    top: 40%;
+    left: 50%; margin-left: -3.5rem;
     background: url(../assets/map-bg.png) no-repeat 0 0;
     background-size: 100% auto;
-    position: relative;
 }
 </style>

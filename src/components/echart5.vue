@@ -51,6 +51,7 @@ export default {
                     var height = parseInt($elem.offsetHeight);
 
                     this.render(width, height)
+                    
                 })
             })
         },
@@ -120,6 +121,7 @@ export default {
 }
 .echart{
     width: 100%;
-    height: 2.26rem;
+    height: 100%;
+    /*height: 2.26rem;*/
 }
 </style>

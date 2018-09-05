@@ -248,8 +248,12 @@ export default {
 </script>
 
 <style scoped>
+.clearfix{
+    height: 100%;
+}
 .echart {
     width: 50%;
-    height: 2.38rem;
+    height: 100%;
+    /*height: 2.38rem;*/
 }
 </style>
