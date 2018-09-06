@@ -1,61 +1,69 @@
 <template>
-<div class="bg">
 <div class="layout">
     <div class="topBg">
-        <h1>威海市信用大数据分析平台</h1>
-        <div class="wrap">
-            <div class="left fl">
-                <div class="echartBox">
-                    <h2>重点人群失信占比分析<span class="more">更多</span></h2>
-                    <div class="inner">
-                        <echart1></echart1>
-                    </div>
-                </div>
-                <div class="echartBox mt30">
-                    <h2 class="h2-2">失信信息统计</h2>
-                    <div class="inner">
-                        <echart2></echart2>
-                    </div>
-                </div>
-                <div class="echartBox echartBox3 mt30">
-                    <h2>行业信用评价结果分析<span class="more">更多</span></h2>
-                    <div class="inner">
-                        <ul class="tab">
-                            <li class="item" :class="{'cur': echart3TabIndex == '餐饮行业'}" @click="echart3Tab('餐饮行业')">餐饮行业</li>
-                            <li class="item" :class="{'cur': echart3TabIndex == '渔船行业'}" @click="echart3Tab('渔船行业')">渔船行业</li>
-                            <li class="item" :class="{'cur': echart3TabIndex == '电商行业'}" @click="echart3Tab('电商行业')">电商行业</li>
-                        </ul>
-                        <echart3></echart3>
-                    </div>
+        <h1 class="table"><div class="table-cell">威海市信用大数据分析平台</div></h1>
+    </div>
+    <div class="wrap">
+        <div class="echartBox box1">
+            <h2>重点人群失信占比分析<span class="more">更多</span></h2>
+            <div class="inner">
+                <div class="inner-bg">
+                    <echart1></echart1>
                 </div>
             </div>
-            <div class="middle fl">
-                <turntable></turntable>
-                <chart-map></chart-map>
+        </div>
+        <div class="echartBox box2">
+            <h2 class="h2-2">失信信息统计</h2>
+            <div class="inner">
+                <div class="inner-bg">
+                    <echart2></echart2>
+                </div>
             </div>
-            <div class="right fr">
-                <div class="echartBox">
-                    <h2 class="h2-2">信用记录查询分布图</h2>
-                    <div class="inner">
+        </div>
+        <div class="echartBox echartBox3 box3">
+            <h2>行业信用评价结果分析<span class="more">更多</span></h2>
+            <div class="inner">
+                <div class="inner-bg">
+                    <ul class="tab">
+                        <li class="item" :class="{'cur': echart3TabIndex == '餐饮行业'}" @click="echart3Tab('餐饮行业')">餐饮行业</li>
+                        <li class="item" :class="{'cur': echart3TabIndex == '渔船行业'}" @click="echart3Tab('渔船行业')">渔船行业</li>
+                        <li class="item" :class="{'cur': echart3TabIndex == '电商行业'}" @click="echart3Tab('电商行业')">电商行业</li>
+                    </ul>
+                    <echart3></echart3>
+                </div>
+            </div>
+        </div>
+        <turntable></turntable>
+        <div class="map">
+            <chart-map></chart-map>
+        </div>
+        <div class="right fr">
+            <div class="echartBox box4">
+                <h2 class="h2-2">信用记录查询分布图</h2>
+                <div class="inner">
+                    <div class="inner-bg">
                         <echart4></echart4>
                     </div>
                 </div>
-                <div class="echartBox mt30">
-                    <h2>跨行业黑名单交叉对比<router-link class="more link" tag="span" to="/contrast">更多</router-link></h2>
-                    <div class="inner">
+            </div>
+            <div class="echartBox box5">
+                <h2>跨行业黑名单交叉对比<router-link class="more link" tag="span" to="/contrast">更多</router-link></h2>
+                <div class="inner">
+                    <div class="inner-bg">
                         <echart5></echart5>
                     </div>
                 </div>
-                <div class="echartBox mt30">
-                    <h2>企业关联分析图<router-link class="more link" tag="span" to="/analysis">更多</router-link></h2>
-                    <div class="inner">
+            </div>
+            <div class="echartBox box6">
+                <h2>企业关联分析图<router-link class="more link" tag="span" to="/analysis">更多</router-link></h2>
+                <div class="inner">
+                    <div class="inner-bg">
                         <echart6></echart6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 </template>
 
@@ -69,6 +77,8 @@ import echart5 from "../components/echart5.vue"
 import echart6 from "../components/echart6.vue"
 import turntable from "../components/turntable.vue"
 import chartMap from "../components/chartMap.vue"
+import getElement from '../js/getElement.js'
+import getD3 from '../js/getD3.js'
 
 export default {
     data() {
@@ -78,9 +88,67 @@ export default {
     },
     components:{ echart1, echart2, echart3, echart4, echart5, echart6, turntable, chartMap },
     created() {
+        this.resize();
+        window.onresize = () => {
+            window.echart1.resize();
+            window.echart2_1.resize();
+            window.echart2_2.resize();
+            window.echart3.resize();
+            window.echart4.resize();
+            window.echart6.resize();
 
+            getD3(() => {
+                getElement('venn', $elem => {
+                    var width = parseInt($elem.offsetWidth);
+                    var height = parseInt($elem.offsetHeight);
+
+                    this.renderVenn(width, height)
+                    
+                })
+            })
+            this.resize();
+        }
     },
     methods:{
+        resize(){
+            var height = document.documentElement.clientHeight;
+            var h = 1920;
+            var s = height / 1080;
+            var w = 1920 * s;
+
+            this.renderRem(w)
+        },
+        renderRem(width){
+            var value = document.documentElement.clientWidth
+            var ua = navigator.userAgent
+
+            if (ua.match(/MI 5/) && ua.match(/QQBrowser/) && ! ua.match(/MicroMessenger/)) {
+                value = (3 * value) / 2.6 // 小米虽然 dpr 是3 但表现的依然是 2.6
+            }
+
+            var  deviceWidth = Math.min(width, value)
+
+            document.documentElement.style.fontSize = deviceWidth / 19.2 + 'px';
+        },
+        renderVenn(width, height){
+            var sets = [
+                {"sets": [0], "label": "A", "size": 400, "fill": "#2694fd", "color": "#fff"},
+                {"sets": [1], "label": "C", "size": 100, "fill": "#1dc674", "color": "#fff"},
+                {"sets": [2], "label": "B", "size": 200, "fill": "#f4c93b", "color": "#fff"},
+                {"sets": [0, 1], "size": 15},
+                {"sets": [0, 2], "size": 30},
+                {"sets": [1, 2], "size": 20},
+                {"sets": [0, 1, 2], "size": 10}
+            ]
+
+            var chart = venn.VennDiagram({
+                width: width,
+                height: height
+            });
+
+            var div = d3.select("#venn")
+            div.datum(sets).call(chart);
+        },
         echart3Tab(temp){
             this.echart3TabIndex = temp;
         },
@@ -107,9 +175,48 @@ export default {
 </script>
 
 <style scoped>
-.echartBox3{
-    position: relative;
+
+.echartBox .inner{
+    height: 100%;
+    padding-top: .41rem;
 }
+.inner-bg{
+    width: 100%; height: 100%;
+    background: url(../assets/echart-m.png) repeat-y;
+    background-size: 100% auto;
+}
+.echartBox{
+    width: 28%;
+    position: absolute;
+    z-index: 2;
+}
+.box1{
+    height: 27%;
+    top: 7%; left: 2.6%;
+}
+.box2{
+    height: 27%;
+    top: 37%; left: 2.6%;
+}
+.box3{
+    height: 30%;
+    top: 66.7%; left: 2.6%;
+}
+.box4{
+    height: 30%;
+    top: 7%; right: 2.6%;
+}
+.box5{
+    height: 26%;
+    top: 39.5%; right: 2.6%;
+}
+.box6{
+    height: 28%;
+    top: 68.5%; right: 2.6%;
+}
+/*.echartBox3{
+    position: relative;
+}*/
 .echartBox3 .tab{
     position: absolute;
     top: .4rem; right: .28rem;
@@ -140,38 +247,38 @@ export default {
 .echartBox3 .tab .item.cur{
     background: #1680c7;
 }
-.bg{
-    width: 100%; height: 100%;
+/*.bg{
     background: url(../assets/bg1.jpg) no-repeat center bottom;
     background-size: 100% auto;
-}
+}*/
 .layout{
-    /*width: 100%;*/
-    width: 19.2rem;
-    margin: 0 auto;
-    /*background: url(../assets/bg1_2.png) no-repeat center bottom;*/
-    /*background-size: 100% auto;*/
-    padding-bottom: .37rem;
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: 0;
+    background: url(../assets/bg1.jpg) no-repeat center bottom;
+    background-size: 100% auto;
+    /*padding-bottom: .37rem;*/
 }
 .middle{
-    width: 7rem;
+    width: 38%;
 }
 .wrap{
-    padding: 0 .5rem;
+    /*padding: 7% 2.6% 0 2.6%;*/
     overflow: hidden;
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: 1;
+    left: 0; top: 0;
 }
 .left,
 .right{
-    width: 5.45rem;
+    width: 28%;
 }
 .mt30{
     margin-top: .3rem;
 }
 
-.echartBox .inner{
-    background: url(../assets/echart-m.png) repeat-y;
-    background-size: 100% auto;
-}
+
 .echartBox h2 .more.link{
     cursor: pointer;
 }
@@ -187,7 +294,9 @@ export default {
     height: .41rem;
     background-size: 100% auto;
     padding: .12rem 0 0 .16rem;
-    position: relative;
+    position: absolute;
+    width: 100%;
+    left: 0; top: 0;
 }
 .echartBox h2.h2-2{
     background: url(../assets/echart-t2.png) no-repeat 0 0;

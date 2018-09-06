@@ -101,21 +101,34 @@ export default {
     overflow: hidden;
 }
 .tips{
-    width: 4.71rem; height: 2.84rem;
+    /*max-width: 24.53%;*/
+    max-height: 26.48%;
+    /*max-width: 64.5%;*/
+    /*max-height: 31.5%;*/
+    /*max-width: 64.5%; max-height: 100%;*/
+    width: 24.53%;
     background: url(../assets/zhuan-tips-bg.png) no-repeat 0 0;
-    background-size: 100% auto;
+    background-size: 100% 100%;
     position: absolute;
-    left: .78rem; top: .66rem;
-    padding: .1rem 1.7rem 0 .25rem;
+    /*left: 10.68%; top: 0;*/
+    left: 34.375%; top: 14.26%;
+    padding: 0.9% 8.85% 5.37% 1.3%;
 }
-.turntable{
-    width: 100%; height: 3.4rem;
-    position: relative;
-}
+/*.turntable{
+    width: 36.5%; max-height: 31.5%;
+    position: absolute;
+    left: 31%; top: 14.26%;
+}*/
 .zhuan{
-    width: 2.75rem; height: auto;
+    width: auto;
+    height: auto;
+    /*max-width: 37.6%;*/
+    /*max-height: 31.5%;*/
+    max-width: 14.58%;
+    max-height: 26%;
     position: absolute;
-    right: .17rem;
-    bottom: 0;
+    top: 14.26%;
+    left: 51.56%
+    /*top: 0; left: 56.8%*/
 }
 </style>
