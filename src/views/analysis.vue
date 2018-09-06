@@ -155,9 +155,6 @@ export default {
             })
         },
         toggle(data, index){
-            if(this.openIndex == index){
-                this.openIndex = null;
-            } else {
                 this.openIndex = index;
 
                 this.curDetail = {};
@@ -165,10 +162,10 @@ export default {
                     let result = response.rows[0];
                     this.curDetail = result;
                     //渲染图片
+                    this.$refs.echart7.isFr = false;
                     this.$refs.echart7.render(data.ENTERPRISE_ID, result);
                 })
-                
-            }
+
         }
     }
 }

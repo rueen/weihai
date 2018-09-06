@@ -22,19 +22,19 @@
             <ul class="fl">
                 <li>
                     <span class="icon color1 fl"></span>
-                    <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">{{rollList1.length}}</span></p>
+                    <p class="fl">经营异常名录&法院失信被执行人<span class="f16 yellow num">{{rollList1Size}}</span></p>
                 </li>
                 <li>
                     <span class="icon color2 fl"></span>
-                    <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">{{rollList2.length}}</span></p>
+                    <p class="fl">法院失信被执行人&税务D级<span class="f16 yellow num">{{rollList2Size}}</span></p>
                 </li>
                 <li>
                     <span class="icon color3 fl"></span>
-                    <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">{{rollList3.length}}</span></p>
+                    <p class="fl">税务D级&经营异常名录<span class="f16 yellow num">{{rollList3Size}}</span></p>
                 </li>
                 <li>
                     <span class="icon color4 fl"></span>
-                    <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">{{rollList4.length}}</span></p>
+                    <p class="fl">经营异常名录&法院失信被执行人&税务D级<span class="f16 yellow num">{{rollList4Size}}</span></p>
                 </li>
             </ul>
         </div>
@@ -88,7 +88,11 @@ export default {
             rollList1: [],//0&2 经营异常名录&法院失信被执行人
             rollList2: [],//2&1 法院失信被执行人&税务D级纳税人
             rollList3: [],//0&1 经营异常名录&税务D级纳税人
-            rollList4: []//0&2&1 经营异常名录&法院失信被执行人&税务D级纳税人
+            rollList4: [],//0&2&1 经营异常名录&法院失信被执行人&税务D级纳税人
+            rollList1Size: 0,
+            rollList2Size: 0,
+            rollList3Size: 0,
+            rollList4Size: 0
         }
     },
     components:{ roll },
@@ -107,6 +111,7 @@ export default {
         getData('getScreen', '跨行业黑名单交叉比对', '经营异常名录%26法院失信被执行人').then((response) => {
             let result = response.rows;
 
+            this.rollList1Size = response.total;
             result.forEach((val) => {
                 this.rollList1.push(val['VALUE_'])
             })
@@ -114,6 +119,7 @@ export default {
         getData('getScreen', '跨行业黑名单交叉比对', '法院失信被执行人%26税务D级纳税人').then((response) => {
             let result = response.rows;
 
+            this.rollList2Size = response.total;
             result.forEach((val) => {
                 this.rollList2.push(val['VALUE_'])
             })
@@ -121,6 +127,7 @@ export default {
         getData('getScreen', '跨行业黑名单交叉比对', '经营异常名录%26税务D级纳税人').then((response) => {
             let result = response.rows;
 
+            this.rollList3Size = response.total;
             result.forEach((val) => {
                 this.rollList3.push(val['VALUE_'])
             })
@@ -128,11 +135,12 @@ export default {
         getData('getScreen', '跨行业黑名单交叉比对', '经营异常名录%26法院失信被执行人%26税务D级纳税人').then((response) => {
             let result = response.rows;
 
+            this.rollList4Size = response.total;
             result.forEach((val) => {
                 this.rollList4.push(val['VALUE_'])
             })
         })
-        
+
     },
     methods:{
         venn(){

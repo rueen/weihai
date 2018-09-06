@@ -175,7 +175,7 @@ export default {
                     icon:'path://M512 512m-192 0a192 192 0 1 0 384 0 192 192 0 1 0-384 0Z',
                     textStyle: { color: '#ccc' },
                     data: [{
-                        name: '行政处罚行业分布TOP5',
+                        name: '法院老赖行业分布TOP5',
                         textStyle: {
                             color: '#fff',
                             fontSize: '.14rem'
@@ -221,7 +221,7 @@ export default {
                     }
                 },
                 series: [{
-                    name: '行政处罚行业分布TOP5',
+                    name: '法院老赖行业分布TOP5',
                     type: 'bar',
                     data: this.result2.values,
                     barWidth: 14, //柱图宽度
