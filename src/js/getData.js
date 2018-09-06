@@ -19,6 +19,12 @@ export const getData = async (dispatch, type, temp = '', page = 1, size = 10) =>
     .then((json) => json['result'])
 }
 
+export const getData2 = async (dispatch, type, type2, temp = '', page = 1, size = 10) => {
+  return await fetch(`${url}/out/v2/data.json?dispatch=${ dispatch }&page=${ page }&size=${ size }&type=${ type }&type2=${ type2 }&temp=${ temp }`)
+    .then((response) => response.json())
+    .then((json) => json['result'])
+}
+
 export const search = async (qymc) => {
   return await fetch(`${url}/out/v2/data.json?dispatch=getQyList&page=1&size=10&qymc=${qymc}`)
     .then((response) => response.json())
