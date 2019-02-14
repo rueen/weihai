@@ -21,7 +21,7 @@
         this.names = [];
         this.values1 = [];
         this.values2 = [];
-        getData('getScreen', '信用记录查询分布图').then((response) => {
+        getData('getScreen', '信用记录查询分布图', '', 1, 1000).then((response) => {
           var result = response.rows.sort(function (a, b) {
             return Date.parse(new Date(a.TEMP_)) - Date.parse(new Date(b.TEMP_))
           }), namesArr = [], result1 = {}, result2 = {};

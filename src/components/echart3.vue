@@ -107,7 +107,7 @@
           },
           series: [
             {
-              name: '处罚结果',
+              name: '信用等级',
               type: 'line',
               stack: '总量',
               areaStyle: {normal: {}},
@@ -121,7 +121,7 @@
               smooth: true,
               data: this.result.values1,
             }, {
-              name: '信用等级',
+              name: '处罚结果',
               type: 'line',
               stack: '总量',
               areaStyle: {normal: {}},
