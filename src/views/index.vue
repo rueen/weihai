@@ -29,7 +29,7 @@
                         <li class="item" :class="{'cur': echart3TabIndex == '渔船行业'}" @click="echart3Tab('渔船行业')">渔船行业</li>
                         <li class="item" :class="{'cur': echart3TabIndex == '电商行业'}" @click="echart3Tab('电商行业')">电商行业</li>
                     </ul>
-                    <echart3></echart3>
+                    <echart3 ref="echart3"></echart3>
                 </div>
             </div>
         </div>
@@ -103,7 +103,7 @@ export default {
                     var height = parseInt($elem.offsetHeight);
 
                     this.renderVenn(width, height)
-                    
+
                 })
             })
             this.resize();
@@ -151,6 +151,7 @@ export default {
         },
         echart3Tab(temp){
             this.echart3TabIndex = temp;
+            this.$refs.echart3.getDataAll(this.echart3TabIndex);
         },
         getElement(id,callback){
             var i = 0,
